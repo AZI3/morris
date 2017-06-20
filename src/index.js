@@ -1,21 +1,22 @@
 "use strict";
 
-import {Stack} from "./algorithm/stack.js";
+import {getMinInStack} from "./algorithm/getMinInStack.js";
+
+
+EvaluateTimeCost(getMinInStack);
 
 function EvaluateTimeCost(func) {
-    var startTime = new Date();
-    func();
-    var endTime = new Date();
-    var el = document.getElementById('timer');
-    el.innerHTML = endTime.getTime() - startTime.getTime()
+    let startTime = new Date();
+
+    for (var i = 0; i < 10000; i++) {
+        func()
+    }
+    let result = func();
+
+    let endTime = new Date();
+    let timerEl = document.getElementById('timer');
+    timerEl.innerHTML = (endTime.getTime() - startTime.getTime()) / 10001;
+    let resultEl = document.getElementById('result');
+    resultEl.innerHTML = result
 }
 
-function stackGetMin() {
-    var stack = new Stack();
-
-    stack.push("1");
-    stack.push("2");
-    stack.pop()
-}
-
-EvaluateTimeCost(stackGetMin);
