@@ -1,0 +1,18 @@
+{
+  "version": 3,
+  "sources": [
+    "../src/index.js"
+  ],
+  "names": [
+    "stack",
+    "push",
+    "pop",
+    "console",
+    "log"
+  ],
+  "mappings": "AAAA;;AAEA;;;;;;AAEA,IAAIA,QAAQ,qBAAZ;;AAEAA,MAAMC,IAAN,CAAW,GAAX;AACAD,MAAMC,IAAN,CAAW,GAAX;AACAD,MAAME,GAAN;AACAC,QAAQC,GAAR,CAAYJ,KAAZ",
+  "file": "index.js",
+  "sourcesContent": [
+    "\"use strict\";\n\nimport Stack from 'algorithm/stack'\n\nvar stack = new Stack()\n\nstack.push(\"1\")\nstack.push(\"2\")\nstack.pop()\nconsole.log(stack)"
+  ]
+}

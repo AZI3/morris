@@ -16,6 +16,18 @@ class Stack {
         }
     }
 
+    /*    push(el) {
+     this.items.push(el);
+
+     if (this.minStack.length === 0) {
+     this.minStack.push(el)
+     } else if (el <= this.getMin()) {
+     this.minStack.push(el)
+     } else if(el > this.getMin()) {
+     this.minStack.push(this.minStack.peek())
+     }
+     }*/
+
     pop() {
         if (this.isEmpty()) return null;
         let val = this.items.pop();
@@ -24,6 +36,13 @@ class Stack {
         }
         return val
     }
+
+    /*    pop2() {
+     if (this.isEmpty()) return null;
+     let val = this.items.pop();
+     this.minStack.pop();
+     return val
+     }*/
 
     peek() {
         if (this.isEmpty()) return null;
@@ -44,15 +63,17 @@ class Stack {
     }
 
 }
-export function getMinInStack() {
+
+var test1 = [4, 5, 2, 0, 1, 3];
+
+var stackMin = function (dataArray) {
     var stack = new Stack();
-
-    stack.push(4);
-    stack.push(5);
-    stack.push(2);
-    stack.push(0);
-    stack.push(1);
-    stack.push(3);
-
+    for (var i = 0; i < stackMin.length; i++) {
+        stack.push(dataArray[i])
+    }
     return stack.getMin();
+};
+
+export function getMinInStack() {
+    return stackMin(test1)
 }
