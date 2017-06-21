@@ -3,8 +3,9 @@
 import {getMinInStack} from "./algorithm/getMinInStack.js";
 import {maxDistanceInArrays} from "./algorithm/maxDistanceInArrays.js";
 import {twoStacksQueue} from "./algorithm/twoStacksQueue.js"
+import {getReversedStack} from "./algorithm/reversedStack.js"
 
-EvaluateTimeCost(twoStacksQueue);
+EvaluateTimeCost(getReversedStack);
 
 function EvaluateTimeCost(func) {
     let startTime = new Date();
