@@ -71,10 +71,10 @@ class DogCatQueue {
         if (this.catQ.length == 0) return this.dogQ.pop().getPet();
         if (this.dogQ.length == 0) return this.catQ.pop().getPet();
 
-        if (this.catQ[this.catQ.length - 1].getCount() < this.dogQ[this.dogQ.length - 1].getCount()) {
-            return this.catQ.pop().getPet()
+        if (this.catQ[0].getCount() < this.dogQ[0].getCount()) {
+            return this.catQ.shift().getPet()
         } else {
-            return this.dogQ.pop().getPet()
+            return this.dogQ.shift().getPet()
         }
     }
 
@@ -96,14 +96,15 @@ export function dequeueCatsAndDogsQueue() {
     var catResult = [];
     var dogResult = [];
 
-    for (let i = 0; i < queue.dogQ.length + queue.catQ.length; i++) {
-        allResult.push(queue.pollAll())
+    var len = queue.dogQ.length + queue.catQ.length;
+    for (let i = 0; i < len; i++) {
+        allResult.push(queue.pollAll().getPetType())
     }
     for (let i = 0; i < queue.dogQ.length; i++) {
-        dogResult.push(queue.pollDog())
+        dogResult.push(queue.pollDog().getPetType())
     }
     for (let i = 0; i < queue.catQ.length; i++) {
-        catResult.push(queue.pollCat())
+        catResult.push(queue.pollCat().getPetType())
     }
 
     return allResult
