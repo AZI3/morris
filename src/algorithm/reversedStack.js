@@ -1,6 +1,6 @@
 "use strict";
 
-class ReversedStack {
+class Stack {
     constructor(array) {
         this.items = array
     }
@@ -30,7 +30,7 @@ class ReversedStack {
 var test1 = [1, 2, 3, 4, 5];
 
 var getReversedStack = function (dataArray) {
-    var stack = new ReversedStack(test1);
+    var stack = new Stack(test1);
     return reverse(stack)
 };
 

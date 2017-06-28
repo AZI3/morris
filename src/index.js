@@ -5,8 +5,9 @@ import {maxDistanceInArrays} from "./algorithm/maxDistanceInArrays.js";
 import {twoStacksQueue} from "./algorithm/twoStacksQueue.js"
 import {getReversedStack} from "./algorithm/reversedStack.js"
 import {dequeueCatsAndDogsQueue} from "./algorithm/catsAndDogsQueue.js"
+import {sortStackByStack} from "./algorithm/sortStackByStack.js"
 
-EvaluateTimeCost(dequeueCatsAndDogsQueue);
+EvaluateTimeCost(sortStackByStack);
 
 function EvaluateTimeCost(func) {
     let startTime = new Date();
