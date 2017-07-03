@@ -6,8 +6,9 @@ import {twoStacksQueue} from "./algorithm/twoStacksQueue.js"
 import {getReversedStack} from "./algorithm/reversedStack.js"
 import {dequeueCatsAndDogsQueue} from "./algorithm/catsAndDogsQueue.js"
 import {sortStackByStack} from "./algorithm/sortStackByStack.js"
+import {testHanoi} from "./algorithm/hanoi.js"
 
-EvaluateTimeCost(sortStackByStack);
+EvaluateTimeCost(testHanoi);
 
 function EvaluateTimeCost(func) {
     let startTime = new Date();
