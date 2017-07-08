@@ -450,15 +450,42 @@
         Object.defineProperty(exports, "__esModule", {
             value: true
         });
+
+        var _createClass = function () {
+            function defineProperties(target, props) {
+                for (var i = 0; i < props.length; i++) {
+                    var descriptor = props[i];
+                    descriptor.enumerable = descriptor.enumerable || false;
+                    descriptor.configurable = true;
+                    if ("value" in descriptor) descriptor.writable = true;
+                    Object.defineProperty(target, descriptor.key, descriptor);
+                }
+            }
+
+            return function (Constructor, protoProps, staticProps) {
+                if (protoProps) defineProperties(Constructor.prototype, protoProps);
+                if (staticProps) defineProperties(Constructor, staticProps);
+                return Constructor;
+            };
+        }();
+
         exports.testHanoi = testHanoi;
+        exports.testHanoi2 = testHanoi2;
+        exports.testHanoi3 = testHanoi3;
+
+        function _classCallCheck(instance, Constructor) {
+            if (!(instance instanceof Constructor)) {
+                throw new TypeError("Cannot call a class as a function");
+            }
+        }
+
         var hanoi = function hanoi(nums, origin, aux, dest, log) {
-            var moves = [];
             if (nums == 1) {
                 log.push("Move disk 1 from " + origin + " to " + dest);
                 return;
             }
             hanoi(nums - 1, origin, dest, aux, log);
-            log.push("Move dist " + nums + " from " + origin + " to " + dest);
+            log.push("Move disk " + nums + " from " + origin + " to " + dest);
             hanoi(nums - 1, aux, origin, dest, log);
             return log;
         };
@@ -467,7 +494,110 @@
         var test2 = 5;
 
         function testHanoi() {
-            hanoi(test1, "A", "B", "C", []);
+            return hanoi(test1, "A", "B", "C", []);
+        }
+
+        var hanoi2 = function hanoi2(nums, origin, aux, dest, log) {
+            // mid peg must be used
+            if (nums == 1) {
+                log.push("Move disk 1 from " + origin + " to " + aux);
+                log.push("Move disk 1 from " + aux + " to " + dest);
+                return log;
+            }
+            hanoi2(nums - 1, origin, aux, dest, log);
+            log.push("Move disk " + nums + " from " + origin + " to " + aux);
+            hanoi2(nums - 1, dest, aux, origin, log);
+            log.push("Move disk " + nums + " from " + aux + " to " + dest);
+            hanoi2(nums - 1, origin, aux, dest, log);
+            return log;
+        };
+
+        function testHanoi2() {
+            return hanoi2(test1, "A", "B", "C", []);
+        }
+
+        var Stack = function () {
+            function Stack() {
+                _classCallCheck(this, Stack);
+
+                this.items = [];
+            }
+
+            _createClass(Stack, [{
+                key: "push",
+                value: function push(el) {
+                    this.items.push(el);
+                }
+            }, {
+                key: "pop",
+                value: function pop() {
+                    return this.items.pop();
+                }
+            }, {
+                key: "peek",
+                value: function peek() {
+                    return this.items[this.items.length - 1];
+                }
+            }, {
+                key: "size",
+                value: function size() {
+                    return this.items.length;
+                }
+            }, {
+                key: "isEmpty",
+                value: function isEmpty() {
+                    return this.items.length === 0;
+                }
+            }, {
+                key: "toString",
+                value: function toString() {
+                    return this.items.toString();
+                }
+            }]);
+
+            return Stack;
+        }();
+
+        var ACTION = {
+            NO: 0,
+            L2M: 1,
+            M2L: 2,
+            R2M: 3,
+            M2R: 4
+        };
+
+        var hanoi3 = function hanoi3(nums, origin, aux, dest, log) {
+            var originStack = new Stack();
+            originStack.tag = origin;
+            var auxStack = new Stack();
+            auxStack.tag = aux;
+            var destStack = new Stack();
+            destStack.tag = dest;
+
+            // initialize origin stack
+            for (var i = nums; i > 0; i--) {
+                originStack.push(i);
+            }
+
+            var lastMove = ACTION.NO;
+            while (destStack.size() != nums) {
+                moveStack(ACTION.M2L, ACTION.L2M, originStack, auxStack);
+                moveStack(ACTION.M2R, ACTION.R2M, destStack, auxStack);
+                moveStack(ACTION.L2M, ACTION.M2L, auxStack, originStack);
+                moveStack(ACTION.R2M, ACTION.M2R, auxStack, destStack);
+            }
+
+            function moveStack(forbid, next, from, to) {
+                if (lastMove != forbid && from.peek() < to.peek()) {
+                    to.push(from.pop());
+                    log.push("Move disk 1 from " + from.tag + " to " + to.tag);
+                    lastMove = next;
+                }
+            }
+        };
+
+        function testHanoi3() {
+            return hanoi3(test1, "A", "B", "C", []);
         }
 
         /***/
@@ -847,7 +977,7 @@
 
         var _hanoi = __webpack_require__(2);
 
-        EvaluateTimeCost(_hanoi.testHanoi);
+        EvaluateTimeCost(_hanoi.testHanoi3);
 
         function EvaluateTimeCost(func) {
             var startTime = new Date();
