@@ -101,7 +101,7 @@
     /******/
     /******/ 	// Load entry module and return exports
     /******/
-    return __webpack_require__(__webpack_require__.s = 7);
+    return __webpack_require__(__webpack_require__.s = 8);
     /******/
 })
 /************************************************************************/
@@ -322,6 +322,41 @@
         Object.defineProperty(exports, "__esModule", {
             value: true
         });
+        exports.getLargestInWindowOnArray = getLargestInWindowOnArray;
+        var getMaxValues = function getMaxValues(source, wSize) {
+            var qMax = [];
+            var result = [];
+            for (var i = 0; i < source.length; i++) {
+
+                if (qMax.length > 0 && qMax.peek() < source[i]) {
+                    qMax.pop();
+                }
+
+                qMax.push(source[i]);
+
+                if (qMax.length >= wSize - 1) {
+                    result.push(source[i]);
+                }
+            }
+        };
+
+        var test1 = [4, 3, 5, 4, 3, 3, 6, 7];
+
+        function getLargestInWindowOnArray() {
+            return getMaxValuesInWindow(test1, 3);
+        }
+
+        /***/
+    }),
+    /* 2 */
+    /***/ (function (module, exports, __webpack_require__) {
+
+        "use strict";
+
+
+        Object.defineProperty(exports, "__esModule", {
+            value: true
+        });
 
         var _createClass = function () {
             function defineProperties(target, props) {
@@ -441,7 +476,7 @@
 
         /***/
     }),
-    /* 2 */
+    /* 3 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -569,10 +604,13 @@
         var hanoi3 = function hanoi3(nums, origin, aux, dest, log) {
             var originStack = new Stack();
             originStack.tag = origin;
+            originStack.push(Number.MAX_VALUE);
             var auxStack = new Stack();
             auxStack.tag = aux;
+            auxStack.push(Number.MAX_VALUE);
             var destStack = new Stack();
             destStack.tag = dest;
+            destStack.push(Number.MAX_VALUE);
 
             // initialize origin stack
             for (var i = nums; i > 0; i--) {
@@ -586,11 +624,13 @@
                 moveStack(ACTION.L2M, ACTION.M2L, auxStack, originStack);
                 moveStack(ACTION.R2M, ACTION.M2R, auxStack, destStack);
             }
+            return log;
 
             function moveStack(forbid, next, from, to) {
                 if (lastMove != forbid && from.peek() < to.peek()) {
-                    to.push(from.pop());
-                    log.push("Move disk 1 from " + from.tag + " to " + to.tag);
+                    var val = from.pop();
+                    to.push(val);
+                    log.push("Move disk " + val + " from " + from.tag + " to " + to.tag);
                     lastMove = next;
                 }
             }
@@ -602,7 +642,7 @@
 
         /***/
     }),
-    /* 3 */
+    /* 4 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -635,7 +675,7 @@
 
         /***/
     }),
-    /* 4 */
+    /* 5 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -741,7 +781,7 @@
 
         /***/
     }),
-    /* 5 */
+    /* 6 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -856,7 +896,7 @@
 
         /***/
     }),
-    /* 6 */
+    /* 7 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -957,27 +997,29 @@
 
         /***/
     }),
-    /* 7 */
+    /* 8 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
 
 
-        var _getMinInStack = __webpack_require__(1);
+        var _getMinInStack = __webpack_require__(2);
 
-        var _maxDistanceInArrays = __webpack_require__(3);
+        var _maxDistanceInArrays = __webpack_require__(4);
 
-        var _twoStacksQueue = __webpack_require__(6);
+        var _twoStacksQueue = __webpack_require__(7);
 
-        var _reversedStack = __webpack_require__(4);
+        var _reversedStack = __webpack_require__(5);
 
         var _catsAndDogsQueue = __webpack_require__(0);
 
-        var _sortStackByStack = __webpack_require__(5);
+        var _sortStackByStack = __webpack_require__(6);
 
-        var _hanoi = __webpack_require__(2);
+        var _hanoi = __webpack_require__(3);
 
-        EvaluateTimeCost(_hanoi.testHanoi3);
+        var _getLargestInWindowOnArray = __webpack_require__(1);
+
+        EvaluateTimeCost(_getLargestInWindowOnArray.getLargestInWindowOnArray);
 
         function EvaluateTimeCost(func) {
             var startTime = new Date();

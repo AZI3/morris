@@ -7,9 +7,10 @@ import {getReversedStack} from "./algorithm/reversedStack.js"
 import {dequeueCatsAndDogsQueue} from "./algorithm/catsAndDogsQueue.js"
 import {sortStackByStack} from "./algorithm/sortStackByStack.js"
 import {testHanoi, testHanoi2, testHanoi3} from "./algorithm/hanoi.js"
+import {getLargestInWindowOnArray} from "./algorithm/getLargestInWindowOnArray.js"
 
 
-EvaluateTimeCost(testHanoi3);
+EvaluateTimeCost(getLargestInWindowOnArray);
 
 function EvaluateTimeCost(func) {
     let startTime = new Date();
