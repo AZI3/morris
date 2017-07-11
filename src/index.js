@@ -8,9 +8,10 @@ import {dequeueCatsAndDogsQueue} from "./algorithm/catsAndDogsQueue.js"
 import {sortStackByStack} from "./algorithm/sortStackByStack.js"
 import {testHanoi, testHanoi2, testHanoi3} from "./algorithm/hanoi.js"
 import {getLargestInWindowOnArray} from "./algorithm/getLargestInWindowOnArray.js"
+import {getMaxTreeFromArray} from "./algorithm/maxTreeFromArray"
 
 
-EvaluateTimeCost(getLargestInWindowOnArray);
+EvaluateTimeCost(getMaxTreeFromArray);
 
 function EvaluateTimeCost(func) {
     let startTime = new Date();
