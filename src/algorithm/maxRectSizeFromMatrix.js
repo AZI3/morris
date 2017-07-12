@@ -52,7 +52,7 @@ var maxRectFromBottom = function (height) {
         while (!stack.isEmpty() && height[stack.peek()] >= height[i]) {
             var j = stack.pop();
             var k = stack.isEmpty() ? -1 : stack.peek();
-            var curArea = (i - (k + 1)) * height[j];
+            var curArea = ((i - 1) - (k + 1) + 1) * height[j];
             maxArea = Math.max(maxArea, curArea)
         }
         stack.push(i)
@@ -60,7 +60,7 @@ var maxRectFromBottom = function (height) {
     while (!stack.isEmpty()) {
         var j = stack.pop();
         var k = stack.isEmpty() ? -1 : stack.peek();
-        var curArea = (height.length - (k + 1)) * height[j];
+        var curArea = ((height.length - 1) - (k + 1) + 1) * height[j];
         maxArea = Math.max(maxArea, curArea)
     }
     return maxArea
