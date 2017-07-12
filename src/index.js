@@ -9,9 +9,11 @@ import {sortStackByStack} from "./algorithm/sortStackByStack.js"
 import {testHanoi, testHanoi2, testHanoi3} from "./algorithm/hanoi.js"
 import {getLargestInWindowOnArray} from "./algorithm/getLargestInWindowOnArray.js"
 import {getMaxTreeFromArray} from "./algorithm/maxTreeFromArray"
+import {maxRectSizeFromMatrix} from "./algorithm/maxRectSizeFromMatrix.js"
+import {mergeTwoSortedArrays} from  "./algorithm/mergeTwoSortedArrays.js"
 
 
-EvaluateTimeCost(getMaxTreeFromArray);
+EvaluateTimeCost(mergeTwoSortedArrays);
 
 function EvaluateTimeCost(func) {
     let startTime = new Date();
