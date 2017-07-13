@@ -12,9 +12,10 @@ import {getMaxTreeFromArray} from "./algorithm/maxTreeFromArray"
 import {maxRectSizeFromMatrix} from "./algorithm/maxRectSizeFromMatrix.js"
 import {mergeTwoSortedArrays} from  "./algorithm/mergeTwoSortedArrays.js"
 import {subArraysWithinDistance} from "./algorithm/subArraysWithinDistance.js"
+import {commonPartOfTwoSortedLinkedLists} from "./algorithm/commonPartOfTwoSortedLinkedLists.js"
 
 
-EvaluateTimeCost(getMaxTreeFromArray);
+EvaluateTimeCost(commonPartOfTwoSortedLinkedLists);
 
 function EvaluateTimeCost(func) {
     let startTime = new Date();

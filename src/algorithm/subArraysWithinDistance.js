@@ -13,10 +13,10 @@ var getSubArraysWithinDistance = function (arr, num) {
             qMax.push(j);
             if (qMin.length > 0 && arr[qMin[qMin.length - 1]] >= arr[j]) qMin.pop();
             qMin.push(j);
-            if (arr[qMax[0]] - arr[qMin[0]] > num) break;
+            if (arr[qMax[0]] - arr[qMin[0]] > num) break; // A very important hypothesis is if the current sub array is not qualified, a sub array with larger bounds is not qualified either
             j++
         }
-        res += j - i;
+        res += j - i; // if the current sub array is qualified, a sub array with smaller lower bound is qualified too
         if (qMax[0] == i) qMax.shift();
         if (qMin[0] == i) qMin.shift();
         i++
