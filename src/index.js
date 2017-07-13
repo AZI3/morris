@@ -14,7 +14,7 @@ import {mergeTwoSortedArrays} from  "./algorithm/mergeTwoSortedArrays.js"
 import {subArraysWithinDistance} from "./algorithm/subArraysWithinDistance.js"
 
 
-EvaluateTimeCost(subArraysWithinDistance);
+EvaluateTimeCost(getMaxTreeFromArray);
 
 function EvaluateTimeCost(func) {
     let startTime = new Date();

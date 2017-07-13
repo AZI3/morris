@@ -55,15 +55,15 @@ var maxTreeFromArray = function (arr) {
     for (var i = 0; i < nodes.length; i++) {
         var curNode = nodes[i];
         while (!stack.isEmpty() && stack.peek().value < curNode.value) {
-            popStackSetMap(stack, lMap)
+            popStackSetMap(stack, lMap, rMap, curNode)
         }
         stack.push(curNode)
     }
     while (!stack.isEmpty()) {
-        popStackSetMap(stack, lMap)
+        popStackSetMap(stack, lMap, rMap, null)
     }
 
-    // for each element, find the first larger number on the right side
+    /*    // for each element, find the first larger number on the right side
     for (var i = nodes.length - 1; i >= 0; i--) {
         var curNode = nodes[i];
         while (!stack.isEmpty() && stack.peek().value < curNode.value) {
@@ -73,7 +73,7 @@ var maxTreeFromArray = function (arr) {
     }
     while (!stack.isEmpty()) {
         popStackSetMap(stack, rMap)
-    }
+     }*/
 
     // generate the tree
     var head = null;
@@ -107,13 +107,14 @@ var maxTreeFromArray = function (arr) {
     return head
 };
 
-function popStackSetMap(stack, map) {
+function popStackSetMap(stack, lMap, rMap, curNode) {
     var node = stack.pop();
     if (stack.isEmpty()) {
-        map.set(node, null)
+        lMap.set(node, null)
     } else {
-        map.set(node, stack.peek())
+        lMap.set(node, stack.peek())
     }
+    rMap.set(node, curNode)
 }
 
 export function getMaxTreeFromArray() {
