@@ -13,9 +13,10 @@ import {maxRectSizeFromMatrix} from "./algorithm/maxRectSizeFromMatrix.js"
 import {mergeTwoSortedArrays} from  "./algorithm/mergeTwoSortedArrays.js"
 import {subArraysWithinDistance} from "./algorithm/subArraysWithinDistance.js"
 import {commonPartOfTwoSortedLinkedLists} from "./algorithm/commonPartOfTwoSortedLinkedLists.js"
+import {removeKthNodeFromLinkedList} from "./algorithm/removeKthNodeFromLinkedList.js"
 
 
-EvaluateTimeCost(commonPartOfTwoSortedLinkedLists);
+EvaluateTimeCost(removeKthNodeFromLinkedList);
 
 function EvaluateTimeCost(func) {
     let startTime = new Date();
