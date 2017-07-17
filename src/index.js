@@ -17,9 +17,10 @@ import {removeKthNodeFromLinkedList} from "./algorithm/removeKthNodeFromLinkedLi
 import {exclusiveTimeOfFunctionExecution} from "./algorithm/exclusiveTimeOfFunctionExecution.js"
 import {removeMiddleNodeFromLinkedList} from "./algorithm/removeMiddleNodeFromLinkedList"
 import {removeNodeAtAOverBFromLinkedList} from "./algorithm/removeNodeAtAOverBFromLinkedList"
+import {reverseLinkedList} from "./algorithm/reverseLinkedList"
 
 
-EvaluateTimeCost(removeNodeAtAOverBFromLinkedList);
+EvaluateTimeCost(reverseLinkedList);
 
 function EvaluateTimeCost(func) {
     let startTime = new Date();
