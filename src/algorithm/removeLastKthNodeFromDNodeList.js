@@ -1,9 +1,10 @@
 "use strict";
 
-class Node {
+class DNode {
     constructor(val) {
         this.value = val;
-        this.next = null
+        this.next = null;
+        this.prev = null
     }
 
     toString() {
@@ -17,48 +18,32 @@ class Node {
     }
 }
 
-var getRemovedKthNodeList = function (head, k) {
+var getRemovedLastKthNodeList = function (head, k) {
     if (head == null || k < 1) return head;
-    var slow = head;
-    var fast = head;
+    var slow = head, fast = head;
     for (var i = 0; i < k; i++) {
-        if (fast.next == null) return head; // it reaches the end of the list earlier than k steps
+        if (fast.next == null) return head;
         fast = fast.next
     }
     while (fast.next) {
         fast = fast.next;
         slow = slow.next
     }
-    slow.next.next.prev = slow;
     slow.next = slow.next.next;
     return head
 };
 
-export function removeKthNodeFromLinkedList() {
+export function removeLastKthNodeFromDNodeList() {
     var test1 = function () {
-        var head = new Node(1);
+        var head = new DNode(1);
         var p = head;
         for (var i = 2; i <= 5; i++) {
-            p.next = new Node(i);
-            p = p.next
-        }
-        return head
-    }();
-
-    var test2 = function () {
-        var head = new Node(1);
-        var p = head;
-        for (var i = 2; i <= 5; i++) {
-            p.next = new Node(i);
+            p.next = new DNode(i);
             p.next.prev = p;
             p = p.next
         }
         return head
     }();
-
     var k = 2;
-    // return getRemovedKthNodeList(test1, k)
-    return getRemovedKthNodeList(test2, k)
+    return getRemovedLastKthNodeList(test1, k)
 }
-
-

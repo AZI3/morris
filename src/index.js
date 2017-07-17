@@ -14,13 +14,14 @@ import {mergeTwoSortedArrays} from  "./algorithm/mergeTwoSortedArrays.js"
 import {subArraysWithinDistance} from "./algorithm/subArraysWithinDistance.js"
 import {commonPartOfTwoSortedLinkedLists} from "./algorithm/commonPartOfTwoSortedLinkedLists.js"
 import {removeKthNodeFromLinkedList} from "./algorithm/removeKthNodeFromLinkedList.js"
+import {removeLastKthNodeFromDNodeList} from "./algorithm/removeLastKthNodeFromDNodeList"
 import {exclusiveTimeOfFunctionExecution} from "./algorithm/exclusiveTimeOfFunctionExecution.js"
 import {removeMiddleNodeFromLinkedList} from "./algorithm/removeMiddleNodeFromLinkedList"
 import {removeNodeAtAOverBFromLinkedList} from "./algorithm/removeNodeAtAOverBFromLinkedList"
 import {reverseLinkedList} from "./algorithm/reverseLinkedList"
 
 
-EvaluateTimeCost(removeKthNodeFromLinkedList);
+EvaluateTimeCost(removeLastKthNodeFromDNodeList);
 
 function EvaluateTimeCost(func) {
     let startTime = new Date();
