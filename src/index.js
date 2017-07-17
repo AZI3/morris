@@ -15,9 +15,10 @@ import {subArraysWithinDistance} from "./algorithm/subArraysWithinDistance.js"
 import {commonPartOfTwoSortedLinkedLists} from "./algorithm/commonPartOfTwoSortedLinkedLists.js"
 import {removeKthNodeFromLinkedList} from "./algorithm/removeKthNodeFromLinkedList.js"
 import {exclusiveTimeOfFunctionExecution} from "./algorithm/exclusiveTimeOfFunctionExecution.js"
+import {removeMiddleNodeFromLinkedList} from "./algorithm/removeMiddleNodeFromLinkedList"
 
 
-EvaluateTimeCost(exclusiveTimeOfFunctionExecution);
+EvaluateTimeCost(removeMiddleNodeFromLinkedList);
 
 function EvaluateTimeCost(func) {
     let startTime = new Date();

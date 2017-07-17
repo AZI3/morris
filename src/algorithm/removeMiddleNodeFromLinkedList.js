@@ -22,13 +22,13 @@ var getRemovedMiddleNodeList = function (head) {
 
     if (head.next.next == null) return head.next;
 
-    var pre = head;
-    var cur = head.next.next;
+    var pre = head.next; // first node
+    var cur = head.next.next.next; // third node
     while (cur.next != null && cur.next.next != null) {
-        pre = pre.next;
-        cur = cur.next.next
+        pre = pre.next; // moves one step
+        cur = cur.next.next // moves two steps
     }
-    pre.next = pre.next.next;
+    pre.next = pre.next.next; // skip the middle node
     return head
 
 };
