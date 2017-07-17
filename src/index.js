@@ -16,9 +16,10 @@ import {commonPartOfTwoSortedLinkedLists} from "./algorithm/commonPartOfTwoSorte
 import {removeKthNodeFromLinkedList} from "./algorithm/removeKthNodeFromLinkedList.js"
 import {exclusiveTimeOfFunctionExecution} from "./algorithm/exclusiveTimeOfFunctionExecution.js"
 import {removeMiddleNodeFromLinkedList} from "./algorithm/removeMiddleNodeFromLinkedList"
+import {removeNodeAtAOverBFromLinkedList} from "./algorithm/removeNodeAtAOverBFromLinkedList"
 
 
-EvaluateTimeCost(removeMiddleNodeFromLinkedList);
+EvaluateTimeCost(removeNodeAtAOverBFromLinkedList);
 
 function EvaluateTimeCost(func) {
     let startTime = new Date();
