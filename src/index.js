@@ -20,7 +20,7 @@ import {removeNodeAtAOverBFromLinkedList} from "./algorithm/removeNodeAtAOverBFr
 import {reverseLinkedList} from "./algorithm/reverseLinkedList"
 
 
-EvaluateTimeCost(removeNodeAtAOverBFromLinkedList);
+EvaluateTimeCost(removeKthNodeFromLinkedList);
 
 function EvaluateTimeCost(func) {
     let startTime = new Date();

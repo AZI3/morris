@@ -8,7 +8,7 @@ class Node {
 
     toString() {
         var content = [];
-        var p = this.next;
+        var p = this;
         while (p) {
             content.push(p.value);
             p = p.next
@@ -35,9 +35,9 @@ var getRemovedMiddleNodeList = function (head) {
 
 export function removeMiddleNodeFromLinkedList() {
     var test1 = function () {
-        var head = new Node(null);
+        var head = new Node(1);
         var p = head;
-        for (var i = 1; i <= 5; i++) {
+        for (var i = 2; i <= 5; i++) {
             p.next = new Node(i);
             p = p.next
         }
