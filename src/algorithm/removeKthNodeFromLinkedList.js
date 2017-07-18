@@ -29,7 +29,6 @@ var getRemovedKthNodeList = function (head, k) {
         fast = fast.next;
         slow = slow.next
     }
-    slow.next.next.prev = slow;
     slow.next = slow.next.next;
     return head
 };
@@ -45,20 +44,8 @@ export function removeKthNodeFromLinkedList() {
         return head
     }();
 
-    var test2 = function () {
-        var head = new Node(1);
-        var p = head;
-        for (var i = 2; i <= 5; i++) {
-            p.next = new Node(i);
-            p.next.prev = p;
-            p = p.next
-        }
-        return head
-    }();
-
     var k = 2;
-    // return getRemovedKthNodeList(test1, k)
-    return getRemovedKthNodeList(test2, k)
+    return getRemovedKthNodeList(test1, k)
 }
 
 

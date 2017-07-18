@@ -29,6 +29,7 @@ var getRemovedLastKthNodeList = function (head, k) {
         fast = fast.next;
         slow = slow.next
     }
+    slow.next.next.prev = slow;
     slow.next = slow.next.next;
     return head
 };
