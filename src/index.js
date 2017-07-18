@@ -19,9 +19,10 @@ import {exclusiveTimeOfFunctionExecution} from "./algorithm/exclusiveTimeOfFunct
 import {removeMiddleNodeFromLinkedList} from "./algorithm/removeMiddleNodeFromLinkedList"
 import {removeNodeAtAOverBFromLinkedList} from "./algorithm/removeNodeAtAOverBFromLinkedList"
 import {reverseLinkedList} from "./algorithm/reverseLinkedList"
+import {reverseDNodeList} from "./algorithm/reverseDNodeList"
 
 
-EvaluateTimeCost(removeLastKthNodeFromDNodeList);
+EvaluateTimeCost(reverseDNodeList);
 
 function EvaluateTimeCost(func) {
     let startTime = new Date();
