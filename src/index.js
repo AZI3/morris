@@ -21,9 +21,10 @@ import {removeNodeAtAOverBFromLinkedList} from "./algorithm/removeNodeAtAOverBFr
 import {reverseLinkedList} from "./algorithm/reverseLinkedList"
 import {reverseDNodeList} from "./algorithm/reverseDNodeList"
 import {reversePartOfLinkedList} from "./algorithm/reversePartOfLinkedList"
+import {josephKill} from "./algorithm/josephKill"
 
 
-EvaluateTimeCost(reversePartOfLinkedList);
+EvaluateTimeCost(josephKill);
 
 function EvaluateTimeCost(func) {
     let startTime = new Date();
