@@ -101,7 +101,7 @@
     /******/
     /******/ 	// Load entry module and return exports
     /******/
-    return __webpack_require__(__webpack_require__.s = 8);
+    return __webpack_require__(__webpack_require__.s = 21);
     /******/
 })
 /************************************************************************/
@@ -322,22 +322,147 @@
         Object.defineProperty(exports, "__esModule", {
             value: true
         });
+        exports.commonPartOfTwoSortedLinkedLists = commonPartOfTwoSortedLinkedLists;
+
+        function _classCallCheck(instance, Constructor) {
+            if (!(instance instanceof Constructor)) {
+                throw new TypeError("Cannot call a class as a function");
+            }
+        }
+
+        var Node = function Node(val) {
+            _classCallCheck(this, Node);
+
+            this.value = val;
+            this.next = null;
+        };
+
+        var test1 = function () {
+            var head = new Node(null);
+            var p = head;
+            for (var i = 1; i <= 5; i++) {
+                p.next = new Node(i);
+                p = p.next;
+            }
+            return head;
+        }();
+
+        var test2 = function () {
+            var head = new Node(null);
+            var p = head;
+            for (var i = 2; i <= 6; i += 2) {
+                p.next = new Node(i);
+                p = p.next;
+            }
+            return head;
+        }();
+
+        var getCommonPartOfTwoSortedLinkedLists = function getCommonPartOfTwoSortedLinkedLists(list1, list2) {
+            var result = [];
+            var iNode = list1.next;
+            var jNode = list2.next;
+            while (iNode && jNode) {
+                if (iNode.value < jNode.value) {
+                    // result.push(iNode.value)
+                    iNode = iNode.next;
+                } else if (jNode.value > iNode.value) {
+                    // result.push(jNode.value)
+                    jNode = jNode.next;
+                } else {
+                    result.push(iNode.value);
+                    iNode = iNode.next;
+                    jNode = jNode.next;
+                }
+            }
+            /*    while(iNode) {
+             result.push(iNode.value)
+             iNode = iNode.next
+             }
+             while(jNode) {
+             result.push(jNode.value)
+             jNode = jNode.next
+             }*/
+            return result;
+        };
+
+        function commonPartOfTwoSortedLinkedLists() {
+            return getCommonPartOfTwoSortedLinkedLists(test1, test2);
+        }
+
+        /***/
+    }),
+    /* 2 */
+    /***/ (function (module, exports, __webpack_require__) {
+
+        "use strict";
+
+
+        Object.defineProperty(exports, "__esModule", {
+            value: true
+        });
+        exports.exclusiveTimeOfFunctionExecution = exclusiveTimeOfFunctionExecution;
+        var exclusiveTime = function exclusiveTime(n, logs) {
+            var funcStack = [];
+            var result = [];
+            var prevTime = 0;
+            for (var i = 0; i < n; i++) {
+                result[i] = 0;
+            }
+            for (var i = 0; i < logs.length; i++) {
+                var parts = logs[i].split(":");
+                if (parts[1] == 'start') {
+                    if (funcStack.length > 0) {
+                        result[funcStack[funcStack.length - 1]] += parseInt(parts[2]) - prevTime;
+                    }
+                    funcStack.push(parseInt(parts[0]));
+                    prevTime = parseInt(parts[2]);
+                } else {
+                    result[funcStack.pop()] += parseInt(parts[2]) - prevTime + 1;
+                    prevTime = parseInt(parts[2]) + 1;
+                }
+            }
+            return result;
+        };
+
+        function exclusiveTimeOfFunctionExecution() {
+            var n = 2;
+            var test1 = ["0:start:0", "1:start:2", "1:end:5", "0:end:6"];
+            return exclusiveTime(n, test1);
+        }
+
+        /***/
+    }),
+    /* 3 */
+    /***/ (function (module, exports, __webpack_require__) {
+
+        "use strict";
+
+
+        Object.defineProperty(exports, "__esModule", {
+            value: true
+        });
         exports.getLargestInWindowOnArray = getLargestInWindowOnArray;
-        var getMaxValues = function getMaxValues(source, wSize) {
+        var getMaxValuesInWindow = function getMaxValuesInWindow(source, wSize) {
+            if (source == null || wSize < 1 || source.length < wSize) return [];
+
             var qMax = [];
             var result = [];
             for (var i = 0; i < source.length; i++) {
 
-                if (qMax.length > 0 && qMax.peek() < source[i]) {
+                while (qMax.length > 0 && source[qMax[qMax.length - 1]] <= source[i]) {
                     qMax.pop();
                 }
+                qMax.push(i);
 
-                qMax.push(source[i]);
+                if (qMax[0] == i - wSize) {
+                    qMax.shift();
+                }
 
-                if (qMax.length >= wSize - 1) {
-                    result.push(source[i]);
+                if (qMax[qMax.length - 1] >= wSize - 1) {
+                    result.push(source[qMax[0]]);
                 }
             }
+            return result;
         };
 
         var test1 = [4, 3, 5, 4, 3, 3, 6, 7];
@@ -348,7 +473,7 @@
 
         /***/
     }),
-    /* 2 */
+    /* 4 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -476,7 +601,7 @@
 
         /***/
     }),
-    /* 3 */
+    /* 5 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -642,7 +767,7 @@
 
         /***/
     }),
-    /* 4 */
+    /* 6 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -675,7 +800,968 @@
 
         /***/
     }),
-    /* 5 */
+    /* 7 */
+    /***/ (function (module, exports, __webpack_require__) {
+
+        "use strict";
+
+
+        Object.defineProperty(exports, "__esModule", {
+            value: true
+        });
+
+        var _createClass = function () {
+            function defineProperties(target, props) {
+                for (var i = 0; i < props.length; i++) {
+                    var descriptor = props[i];
+                    descriptor.enumerable = descriptor.enumerable || false;
+                    descriptor.configurable = true;
+                    if ("value" in descriptor) descriptor.writable = true;
+                    Object.defineProperty(target, descriptor.key, descriptor);
+                }
+            }
+
+            return function (Constructor, protoProps, staticProps) {
+                if (protoProps) defineProperties(Constructor.prototype, protoProps);
+                if (staticProps) defineProperties(Constructor, staticProps);
+                return Constructor;
+            };
+        }();
+
+        exports.maxRectSizeFromMatrix = maxRectSizeFromMatrix;
+
+        function _classCallCheck(instance, Constructor) {
+            if (!(instance instanceof Constructor)) {
+                throw new TypeError("Cannot call a class as a function");
+            }
+        }
+
+        var Stack = function () {
+            function Stack() {
+                _classCallCheck(this, Stack);
+
+                this.items = [];
+            }
+
+            _createClass(Stack, [{
+                key: "push",
+                value: function push(el) {
+                    this.items.push(el);
+                }
+            }, {
+                key: "pop",
+                value: function pop() {
+                    return this.items.pop();
+                }
+            }, {
+                key: "peek",
+                value: function peek() {
+                    return this.items[this.items.length - 1];
+                }
+            }, {
+                key: "size",
+                value: function size() {
+                    return this.items.length;
+                }
+            }, {
+                key: "isEmpty",
+                value: function isEmpty() {
+                    return this.items.length === 0;
+                }
+            }, {
+                key: "toString",
+                value: function toString() {
+                    return this.items.toString();
+                }
+            }]);
+
+            return Stack;
+        }();
+
+        var getMaxRectSizeFromMatrix = function getMaxRectSizeFromMatrix(arr) {
+            if (arr == null || arr.length == 0 || arr[0].length == 0) return 0;
+            var maxArea = 0;
+            var height = [0, 0, 0, 0];
+            for (var i = 0; i < arr.length; i++) {
+                for (var j = 0; j < arr[0].length; j++) {
+                    height[j] = arr[i][j] == 0 ? 0 : height[j] + 1;
+                }
+                maxArea = Math.max(maxArea, maxRectFromBottom(height));
+            }
+            return maxArea;
+        };
+
+        var maxRectFromBottom = function maxRectFromBottom(height) {
+            if (height == null || height.length == 0) return 0;
+            var maxArea = 0;
+            var stack = new Stack();
+            for (var i = 0; i < height.length; i++) {
+                while (!stack.isEmpty() && height[stack.peek()] >= height[i]) {
+                    var j = stack.pop();
+                    var k = stack.isEmpty() ? -1 : stack.peek();
+                    var curArea = (i - 1 - (k + 1) + 1) * height[j];
+                    maxArea = Math.max(maxArea, curArea);
+                }
+                stack.push(i);
+            }
+            while (!stack.isEmpty()) {
+                var j = stack.pop();
+                var k = stack.isEmpty() ? -1 : stack.peek();
+                var curArea = (height.length - 1 - (k + 1) + 1) * height[j];
+                maxArea = Math.max(maxArea, curArea);
+            }
+            return maxArea;
+        };
+
+        var test1 = [];
+        test1[0] = [];
+        test1[1] = [];
+        test1[2] = [];
+
+        test1[0][0] = 1;
+        test1[0][1] = 0;
+        test1[0][2] = 1;
+        test1[0][3] = 1;
+
+        test1[1][0] = 1;
+        test1[1][1] = 1;
+        test1[1][2] = 1;
+        test1[1][3] = 1;
+
+        test1[2][0] = 1;
+        test1[2][1] = 1;
+        test1[2][2] = 1;
+        test1[2][3] = 0;
+
+        function maxRectSizeFromMatrix() {
+            return getMaxRectSizeFromMatrix(test1);
+        }
+
+        /***/
+    }),
+    /* 8 */
+    /***/ (function (module, exports, __webpack_require__) {
+
+        "use strict";
+
+
+        Object.defineProperty(exports, "__esModule", {
+            value: true
+        });
+
+        var _createClass = function () {
+            function defineProperties(target, props) {
+                for (var i = 0; i < props.length; i++) {
+                    var descriptor = props[i];
+                    descriptor.enumerable = descriptor.enumerable || false;
+                    descriptor.configurable = true;
+                    if ("value" in descriptor) descriptor.writable = true;
+                    Object.defineProperty(target, descriptor.key, descriptor);
+                }
+            }
+
+            return function (Constructor, protoProps, staticProps) {
+                if (protoProps) defineProperties(Constructor.prototype, protoProps);
+                if (staticProps) defineProperties(Constructor, staticProps);
+                return Constructor;
+            };
+        }();
+
+        exports.getMaxTreeFromArray = getMaxTreeFromArray;
+
+        function _classCallCheck(instance, Constructor) {
+            if (!(instance instanceof Constructor)) {
+                throw new TypeError("Cannot call a class as a function");
+            }
+        }
+
+        var Node = function Node(val) {
+            _classCallCheck(this, Node);
+
+            this.value = val;
+            this.left = null;
+            this.right = null;
+        };
+
+        var Stack = function () {
+            function Stack() {
+                _classCallCheck(this, Stack);
+
+                this.items = [];
+            }
+
+            _createClass(Stack, [{
+                key: "push",
+                value: function push(el) {
+                    this.items.push(el);
+                }
+            }, {
+                key: "pop",
+                value: function pop() {
+                    return this.items.pop();
+                }
+            }, {
+                key: "peek",
+                value: function peek() {
+                    return this.items[this.items.length - 1];
+                }
+            }, {
+                key: "size",
+                value: function size() {
+                    return this.items.length;
+                }
+            }, {
+                key: "isEmpty",
+                value: function isEmpty() {
+                    return this.items.length === 0;
+                }
+            }, {
+                key: "toString",
+                value: function toString() {
+                    return this.items.toString();
+                }
+            }]);
+
+            return Stack;
+        }();
+
+        var test1 = [3, 4, 5, 1, 2];
+
+        var maxTreeFromArray = function maxTreeFromArray(arr) {
+            var nodes = [];
+            for (var i = 0; i < arr.length; i++) {
+                nodes.push(new Node(arr[i]));
+            }
+            var stack = new Stack();
+
+            var lMap = new Map();
+            var rMap = new Map();
+
+            // for each element, find the first larger number on the left side
+            for (var i = 0; i < nodes.length; i++) {
+                var curNode = nodes[i];
+                while (!stack.isEmpty() && stack.peek().value < curNode.value) {
+                    popStackSetMap(stack, lMap, rMap, curNode);
+                }
+                stack.push(curNode);
+            }
+            while (!stack.isEmpty()) {
+                popStackSetMap(stack, lMap, rMap, null);
+            }
+
+            /*    // for each element, find the first larger number on the right side
+             for (var i = nodes.length - 1; i >= 0; i--) {
+             var curNode = nodes[i];
+             while (!stack.isEmpty() && stack.peek().value < curNode.value) {
+             popStackSetMap(stack, rMap)
+             }
+             stack.push(curNode)
+             }
+             while (!stack.isEmpty()) {
+             popStackSetMap(stack, rMap)
+             }*/
+
+            // generate the tree
+            var head = null;
+            for (var i = 0; i < nodes.length; i++) {
+                var curNode = nodes[i];
+                var left = lMap.get(curNode);
+                var right = rMap.get(curNode);
+                if (left == null && right == null) {
+                    // no parent, so it's the root
+                    head = curNode;
+                } else if (left == null) {
+                    // the first larger number on the right is the parent
+                    if (right.left == null) {
+                        right.left = curNode;
+                    } else {
+                        right.right = curNode;
+                    }
+                } else if (right == null) {
+                    // the first larger number on the left is the parent
+                    if (left.left == null) {
+                        left.left = curNode;
+                    } else {
+                        left.right = curNode;
+                    }
+                } else {
+                    var parent = left.value < right.value ? left : right; // the smaller one is the parent
+                    if (parent.left == null) {
+                        parent.left = curNode;
+                    } else {
+                        parent.right = curNode;
+                    }
+                }
+            }
+            return head;
+        };
+
+        function popStackSetMap(stack, lMap, rMap, curNode) {
+            var node = stack.pop();
+            if (stack.isEmpty()) {
+                lMap.set(node, null);
+            } else {
+                lMap.set(node, stack.peek());
+            }
+            rMap.set(node, curNode);
+        }
+
+        function getMaxTreeFromArray() {
+            return maxTreeFromArray(test1);
+        }
+
+        /***/
+    }),
+    /* 9 */
+    /***/ (function (module, exports, __webpack_require__) {
+
+        "use strict";
+
+
+        Object.defineProperty(exports, "__esModule", {
+            value: true
+        });
+        exports.mergeTwoSortedArrays = mergeTwoSortedArrays;
+        var arr1 = [1, 3, 4, 5, 6, 9];
+        var arr2 = [2, 4, 6, 8, 10];
+
+        var getMergedArray = function getMergedArray(arr1, arr2) {
+            var i = 0;
+            var j = 0;
+            var result = [];
+
+            while (i < arr1.length && j < arr2.length) {
+                if (arr1[i] < arr2[j]) result.push(arr1[i++]); else if (arr1[i] > arr2[j]) result.push(arr2[j++]); else {
+                    result.push(arr1[i++]);
+                    j++;
+                }
+            }
+            while (i < arr1.length) {
+                result.push(arr1[i++]);
+            }
+            while (j < arr2.length) {
+                result.push(arr2[j++]);
+            }
+            return result;
+        };
+
+        function mergeTwoSortedArrays() {
+            return getMergedArray(arr1, arr2);
+        }
+
+        /***/
+    }),
+    /* 10 */
+    /***/ (function (module, exports, __webpack_require__) {
+
+        "use strict";
+
+
+        Object.defineProperty(exports, "__esModule", {
+            value: true
+        });
+
+        var _createClass = function () {
+            function defineProperties(target, props) {
+                for (var i = 0; i < props.length; i++) {
+                    var descriptor = props[i];
+                    descriptor.enumerable = descriptor.enumerable || false;
+                    descriptor.configurable = true;
+                    if ("value" in descriptor) descriptor.writable = true;
+                    Object.defineProperty(target, descriptor.key, descriptor);
+                }
+            }
+
+            return function (Constructor, protoProps, staticProps) {
+                if (protoProps) defineProperties(Constructor.prototype, protoProps);
+                if (staticProps) defineProperties(Constructor, staticProps);
+                return Constructor;
+            };
+        }();
+
+        exports.removeKthNodeFromLinkedList = removeKthNodeFromLinkedList;
+
+        function _classCallCheck(instance, Constructor) {
+            if (!(instance instanceof Constructor)) {
+                throw new TypeError("Cannot call a class as a function");
+            }
+        }
+
+        var Node = function () {
+            function Node(val) {
+                _classCallCheck(this, Node);
+
+                this.value = val;
+                this.next = null;
+            }
+
+            _createClass(Node, [{
+                key: "toString",
+                value: function toString() {
+                    var content = [];
+                    var p = this;
+                    while (p) {
+                        content.push(p.value);
+                        p = p.next;
+                    }
+                    return content.join();
+                }
+            }]);
+
+            return Node;
+        }();
+
+        var getRemovedKthNodeList = function getRemovedKthNodeList(head, k) {
+            if (head == null || k < 1) return head;
+            var slow = head;
+            var fast = head;
+            for (var i = 0; i < k; i++) {
+                if (fast.next == null) return head; // it reaches the end of the list earlier than k steps
+                fast = fast.next;
+            }
+            while (fast.next) {
+                fast = fast.next;
+                slow = slow.next;
+            }
+            slow.next = slow.next.next;
+            return head;
+        };
+
+        function removeKthNodeFromLinkedList() {
+            var test1 = function () {
+                var head = new Node(1);
+                var p = head;
+                for (var i = 2; i <= 5; i++) {
+                    p.next = new Node(i);
+                    p = p.next;
+                }
+                return head;
+            }();
+
+            var k = 2;
+            return getRemovedKthNodeList(test1, k);
+        }
+
+        /***/
+    }),
+    /* 11 */
+    /***/ (function (module, exports, __webpack_require__) {
+
+        "use strict";
+
+
+        Object.defineProperty(exports, "__esModule", {
+            value: true
+        });
+
+        var _createClass = function () {
+            function defineProperties(target, props) {
+                for (var i = 0; i < props.length; i++) {
+                    var descriptor = props[i];
+                    descriptor.enumerable = descriptor.enumerable || false;
+                    descriptor.configurable = true;
+                    if ("value" in descriptor) descriptor.writable = true;
+                    Object.defineProperty(target, descriptor.key, descriptor);
+                }
+            }
+
+            return function (Constructor, protoProps, staticProps) {
+                if (protoProps) defineProperties(Constructor.prototype, protoProps);
+                if (staticProps) defineProperties(Constructor, staticProps);
+                return Constructor;
+            };
+        }();
+
+        exports.removeLastKthNodeFromDNodeList = removeLastKthNodeFromDNodeList;
+
+        function _classCallCheck(instance, Constructor) {
+            if (!(instance instanceof Constructor)) {
+                throw new TypeError("Cannot call a class as a function");
+            }
+        }
+
+        var DNode = function () {
+            function DNode(val) {
+                _classCallCheck(this, DNode);
+
+                this.value = val;
+                this.next = null;
+                this.prev = null;
+            }
+
+            _createClass(DNode, [{
+                key: "toString",
+                value: function toString() {
+                    var content = [];
+                    var p = this;
+                    while (p) {
+                        content.push(p.value);
+                        p = p.next;
+                    }
+                    return content.join();
+                }
+            }]);
+
+            return DNode;
+        }();
+
+        var getRemovedLastKthNodeList = function getRemovedLastKthNodeList(head, k) {
+            if (head == null || k < 1) return head;
+            var slow = head,
+                fast = head;
+            for (var i = 0; i < k; i++) {
+                if (fast.next == null) return head;
+                fast = fast.next;
+            }
+            while (fast.next) {
+                fast = fast.next;
+                slow = slow.next;
+            }
+            slow.next.next.prev = slow;
+            slow.next = slow.next.next;
+            return head;
+        };
+
+        function removeLastKthNodeFromDNodeList() {
+            var test1 = function () {
+                var head = new DNode(1);
+                var p = head;
+                for (var i = 2; i <= 5; i++) {
+                    p.next = new DNode(i);
+                    p.next.prev = p;
+                    p = p.next;
+                }
+                return head;
+            }();
+            var k = 2;
+            return getRemovedLastKthNodeList(test1, k);
+        }
+
+        /***/
+    }),
+    /* 12 */
+    /***/ (function (module, exports, __webpack_require__) {
+
+        "use strict";
+
+
+        Object.defineProperty(exports, "__esModule", {
+            value: true
+        });
+
+        var _createClass = function () {
+            function defineProperties(target, props) {
+                for (var i = 0; i < props.length; i++) {
+                    var descriptor = props[i];
+                    descriptor.enumerable = descriptor.enumerable || false;
+                    descriptor.configurable = true;
+                    if ("value" in descriptor) descriptor.writable = true;
+                    Object.defineProperty(target, descriptor.key, descriptor);
+                }
+            }
+
+            return function (Constructor, protoProps, staticProps) {
+                if (protoProps) defineProperties(Constructor.prototype, protoProps);
+                if (staticProps) defineProperties(Constructor, staticProps);
+                return Constructor;
+            };
+        }();
+
+        exports.removeMiddleNodeFromLinkedList = removeMiddleNodeFromLinkedList;
+
+        function _classCallCheck(instance, Constructor) {
+            if (!(instance instanceof Constructor)) {
+                throw new TypeError("Cannot call a class as a function");
+            }
+        }
+
+        var Node = function () {
+            function Node(val) {
+                _classCallCheck(this, Node);
+
+                this.value = val;
+                this.next = null;
+            }
+
+            _createClass(Node, [{
+                key: "toString",
+                value: function toString() {
+                    var content = [];
+                    var p = this;
+                    while (p) {
+                        content.push(p.value);
+                        p = p.next;
+                    }
+                    return content.join();
+                }
+            }]);
+
+            return Node;
+        }();
+
+        var getRemovedMiddleNodeList = function getRemovedMiddleNodeList(head) {
+            if (head == null || head.next == null) return head;
+
+            if (head.next.next == null) return head.next;
+
+            var pre = head.next; // first node
+            var cur = head.next.next.next; // third node
+            while (cur.next != null && cur.next.next != null) {
+                pre = pre.next; // moves one step
+                cur = cur.next.next; // moves two steps
+            }
+            pre.next = pre.next.next; // skip the middle node
+            return head;
+        };
+
+        function removeMiddleNodeFromLinkedList() {
+            var test1 = function () {
+                var head = new Node(1);
+                var p = head;
+                for (var i = 2; i <= 5; i++) {
+                    p.next = new Node(i);
+                    p = p.next;
+                }
+                return head;
+            }();
+
+            return getRemovedMiddleNodeList(test1);
+        }
+
+        /***/
+    }),
+    /* 13 */
+    /***/ (function (module, exports, __webpack_require__) {
+
+        "use strict";
+
+
+        Object.defineProperty(exports, "__esModule", {
+            value: true
+        });
+
+        var _createClass = function () {
+            function defineProperties(target, props) {
+                for (var i = 0; i < props.length; i++) {
+                    var descriptor = props[i];
+                    descriptor.enumerable = descriptor.enumerable || false;
+                    descriptor.configurable = true;
+                    if ("value" in descriptor) descriptor.writable = true;
+                    Object.defineProperty(target, descriptor.key, descriptor);
+                }
+            }
+
+            return function (Constructor, protoProps, staticProps) {
+                if (protoProps) defineProperties(Constructor.prototype, protoProps);
+                if (staticProps) defineProperties(Constructor, staticProps);
+                return Constructor;
+            };
+        }();
+
+        exports.removeNodeAtAOverBFromLinkedList = removeNodeAtAOverBFromLinkedList;
+
+        function _classCallCheck(instance, Constructor) {
+            if (!(instance instanceof Constructor)) {
+                throw new TypeError("Cannot call a class as a function");
+            }
+        }
+
+        var Node = function () {
+            function Node(val) {
+                _classCallCheck(this, Node);
+
+                this.value = val;
+                this.next = null;
+            }
+
+            _createClass(Node, [{
+                key: "toString",
+                value: function toString() {
+                    var content = [];
+                    var p = this;
+                    while (p) {
+                        content.push(p.value);
+                        p = p.next;
+                    }
+                    return content.join();
+                }
+            }]);
+
+            return Node;
+        }();
+
+        var getRemovedNodelist = function getRemovedNodelist(head, a, b) {
+            if (head == null || a == 0 || b == 0 || a > b) return head;
+            var cnt = 0;
+            var p = head;
+            while (p) {
+                cnt++;
+                p = p.next;
+            }
+            var idx = Math.ceil(a * cnt / b);
+
+            p = head;
+            while (--idx > 1) {
+                p = p.next;
+            }
+            p.next = p.next.next;
+            return head;
+        };
+
+        function removeNodeAtAOverBFromLinkedList() {
+            var test1 = function () {
+                var head = new Node(1);
+                var p = head;
+                for (var i = 2; i <= 5; i++) {
+                    p.next = new Node(i);
+                    p = p.next;
+                }
+                return head;
+            }();
+            var a = 2,
+                b = 5;
+            return getRemovedNodelist(test1, a, b);
+        }
+
+        /***/
+    }),
+    /* 14 */
+    /***/ (function (module, exports, __webpack_require__) {
+
+        "use strict";
+
+
+        Object.defineProperty(exports, "__esModule", {
+            value: true
+        });
+
+        var _createClass = function () {
+            function defineProperties(target, props) {
+                for (var i = 0; i < props.length; i++) {
+                    var descriptor = props[i];
+                    descriptor.enumerable = descriptor.enumerable || false;
+                    descriptor.configurable = true;
+                    if ("value" in descriptor) descriptor.writable = true;
+                    Object.defineProperty(target, descriptor.key, descriptor);
+                }
+            }
+
+            return function (Constructor, protoProps, staticProps) {
+                if (protoProps) defineProperties(Constructor.prototype, protoProps);
+                if (staticProps) defineProperties(Constructor, staticProps);
+                return Constructor;
+            };
+        }();
+
+        exports.reverseDNodeList = reverseDNodeList;
+
+        function _classCallCheck(instance, Constructor) {
+            if (!(instance instanceof Constructor)) {
+                throw new TypeError("Cannot call a class as a function");
+            }
+        }
+
+        var DNode = function () {
+            function DNode(val) {
+                _classCallCheck(this, DNode);
+
+                this.value = val;
+                this.next = null;
+                this.prev = null;
+            }
+
+            _createClass(DNode, [{
+                key: "toString",
+                value: function toString() {
+                    var content = [];
+                    var p = this;
+                    while (p) {
+                        content.push(p.value);
+                        p = p.next;
+                    }
+                    return content.join();
+                }
+            }]);
+
+            return DNode;
+        }();
+
+        var getReversedDNodeList = function getReversedDNodeList(head) {
+            if (head == null) return head;
+            var pre = null;
+            var next = null;
+            while (head) {
+                var next = head.next;
+                head.next = pre;
+                pre = head;
+                head = next;
+            }
+            return pre;
+        };
+
+        function reverseDNodeList() {
+            var test1 = function () {
+                var head = new DNode(1);
+                var p = head;
+                for (var i = 2; i <= 5; i++) {
+                    p.next = new DNode(i);
+                    p.next.prev = p;
+                    p = p.next;
+                }
+                return head;
+            }();
+
+            return getReversedDNodeList(test1);
+        }
+
+        /***/
+    }),
+    /* 15 */
+    /***/ (function (module, exports, __webpack_require__) {
+
+        "use strict";
+
+
+        Object.defineProperty(exports, "__esModule", {
+            value: true
+        });
+
+        var _createClass = function () {
+            function defineProperties(target, props) {
+                for (var i = 0; i < props.length; i++) {
+                    var descriptor = props[i];
+                    descriptor.enumerable = descriptor.enumerable || false;
+                    descriptor.configurable = true;
+                    if ("value" in descriptor) descriptor.writable = true;
+                    Object.defineProperty(target, descriptor.key, descriptor);
+                }
+            }
+
+            return function (Constructor, protoProps, staticProps) {
+                if (protoProps) defineProperties(Constructor.prototype, protoProps);
+                if (staticProps) defineProperties(Constructor, staticProps);
+                return Constructor;
+            };
+        }();
+
+        exports.reverseLinkedList = reverseLinkedList;
+
+        function _classCallCheck(instance, Constructor) {
+            if (!(instance instanceof Constructor)) {
+                throw new TypeError("Cannot call a class as a function");
+            }
+        }
+
+        var Node = function () {
+            function Node(val) {
+                _classCallCheck(this, Node);
+
+                this.value = val;
+                this.next = null;
+            }
+
+            _createClass(Node, [{
+                key: "toString",
+                value: function toString() {
+                    var content = [];
+                    var p = this;
+                    while (p) {
+                        content.push(p.value);
+                        p = p.next;
+                    }
+                    return content.join();
+                }
+            }]);
+
+            return Node;
+        }();
+
+        var getReversedLinkedList = function getReversedLinkedList(head) {
+            var pre = null;
+            var next = null;
+            while (head) {
+                next = head.next;
+                head.next = pre;
+                pre = head;
+                head = next;
+            }
+            return pre;
+        };
+
+        function reverseLinkedList() {
+            var test1 = function () {
+                var head = new Node(1);
+                var p = head;
+                for (var i = 2; i <= 5; i++) {
+                    p.next = new Node(i);
+                    p = p.next;
+                }
+                return head;
+            }();
+            return getReversedLinkedList(test1);
+        }
+
+        /***/
+    }),
+    /* 16 */
+    /***/ (function (module, exports, __webpack_require__) {
+
+        "use strict";
+
+
+        Object.defineProperty(exports, "__esModule", {
+            value: true
+        });
+        exports.reversePartOfLinkedList = reversePartOfLinkedList;
+        function Node(val) {
+            this.value = val;
+            this.next = null;
+        }
+
+        var getReversedList = function getReversedList(head, from, to) {
+            if (head == null || from > to || from < 1) return head;
+
+            var len = 0;
+            var fromPre = null;
+            var toPost = null;
+            var curNode = head;
+            while (head) {
+                len++;
+                fromPre = len + 1 == from ? curNode : fromPre;
+                toPost = len - 1 == to ? curNode : toPost;
+            }
+            if (to > len) return head;
+
+            curNode = fromPre.next;
+            var nextNode = curNode.next;
+            curNode.next = toPost;
+            var p = null;
+            while (nextNode != toPost) {
+                p = nextNode.next;
+                nextNode.next = curNode;
+                curNode = nextNode;
+                nextNode = p;
+            }
+            return curNode;
+        };
+
+        function reversePartOfLinkedList() {
+            var test1 = function () {
+                var head = new Node(1);
+                for (var i = 2; i <= 5; i++) {
+                    head.next = new Node(i);
+                }
+                return head;
+            }();
+            var from = 2,
+                to = 4;
+            return;
+            return getReversedList(test1, from, to);
+        }
+
+        /***/
+    }),
+    /* 17 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -781,7 +1867,7 @@
 
         /***/
     }),
-    /* 6 */
+    /* 18 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -896,7 +1982,50 @@
 
         /***/
     }),
-    /* 7 */
+    /* 19 */
+    /***/ (function (module, exports, __webpack_require__) {
+
+        "use strict";
+
+
+        Object.defineProperty(exports, "__esModule", {
+            value: true
+        });
+        exports.subArraysWithinDistance = subArraysWithinDistance;
+        var test1 = [1, 2, 3, 4, 5],
+            distance1 = 2;
+
+        var getSubArraysWithinDistance = function getSubArraysWithinDistance(arr, num) {
+            if (arr == null || arr.length == 0) return 0;
+            var i = 0,
+                j = 0,
+                res = 0;
+            var qMax = [],
+                qMin = [];
+            while (i < arr.length) {
+                while (j < arr.length) {
+                    if (qMax.length > 0 && arr[qMax[qMax.length - 1]] <= arr[j]) qMax.pop();
+                    qMax.push(j);
+                    if (qMin.length > 0 && arr[qMin[qMin.length - 1]] >= arr[j]) qMin.pop();
+                    qMin.push(j);
+                    if (arr[qMax[0]] - arr[qMin[0]] > num) break; // A very important hypothesis is if the current sub array is not qualified, a sub array with larger bounds is not qualified either
+                    j++;
+                }
+                res += j - i; // if the current sub array is qualified, a sub array with smaller lower bound is qualified too
+                if (qMax[0] == i) qMax.shift();
+                if (qMin[0] == i) qMin.shift();
+                i++;
+            }
+            return res;
+        };
+
+        function subArraysWithinDistance() {
+            return getSubArraysWithinDistance(test1, distance1);
+        }
+
+        /***/
+    }),
+    /* 20 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -997,29 +2126,55 @@
 
         /***/
     }),
-    /* 8 */
+    /* 21 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
 
 
-        var _getMinInStack = __webpack_require__(2);
+        var _getMinInStack = __webpack_require__(4);
 
-        var _maxDistanceInArrays = __webpack_require__(4);
+        var _maxDistanceInArrays = __webpack_require__(6);
 
-        var _twoStacksQueue = __webpack_require__(7);
+        var _twoStacksQueue = __webpack_require__(20);
 
-        var _reversedStack = __webpack_require__(5);
+        var _reversedStack = __webpack_require__(17);
 
         var _catsAndDogsQueue = __webpack_require__(0);
 
-        var _sortStackByStack = __webpack_require__(6);
+        var _sortStackByStack = __webpack_require__(18);
 
-        var _hanoi = __webpack_require__(3);
+        var _hanoi = __webpack_require__(5);
 
-        var _getLargestInWindowOnArray = __webpack_require__(1);
+        var _getLargestInWindowOnArray = __webpack_require__(3);
 
-        EvaluateTimeCost(_getLargestInWindowOnArray.getLargestInWindowOnArray);
+        var _maxTreeFromArray = __webpack_require__(8);
+
+        var _maxRectSizeFromMatrix = __webpack_require__(7);
+
+        var _mergeTwoSortedArrays = __webpack_require__(9);
+
+        var _subArraysWithinDistance = __webpack_require__(19);
+
+        var _commonPartOfTwoSortedLinkedLists = __webpack_require__(1);
+
+        var _removeKthNodeFromLinkedList = __webpack_require__(10);
+
+        var _removeLastKthNodeFromDNodeList = __webpack_require__(11);
+
+        var _exclusiveTimeOfFunctionExecution = __webpack_require__(2);
+
+        var _removeMiddleNodeFromLinkedList = __webpack_require__(12);
+
+        var _removeNodeAtAOverBFromLinkedList = __webpack_require__(13);
+
+        var _reverseLinkedList = __webpack_require__(15);
+
+        var _reverseDNodeList = __webpack_require__(14);
+
+        var _reversePartOfLinkedList = __webpack_require__(16);
+
+        EvaluateTimeCost(_reversePartOfLinkedList.reversePartOfLinkedList);
 
         function EvaluateTimeCost(func) {
             var startTime = new Date();
