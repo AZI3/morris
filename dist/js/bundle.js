@@ -101,7 +101,7 @@
     /******/
     /******/ 	// Load entry module and return exports
     /******/
-    return __webpack_require__(__webpack_require__.s = 21);
+    return __webpack_require__(__webpack_require__.s = 22);
     /******/
 })
 /************************************************************************/
@@ -531,7 +531,7 @@
 
                 /*    push(el) {
                  this.items.push(el);
-                 if (this.minStack.length === 0) {
+                  if (this.minStack.length === 0) {
                  this.minStack.push(el)
                  } else if (el <= this.getMin()) {
                  this.minStack.push(el)
@@ -776,6 +776,70 @@
         Object.defineProperty(exports, "__esModule", {
             value: true
         });
+        exports.josephKill = josephKill;
+
+        function Node(val) {
+            this.value = val;
+            this.next = null;
+            this.toString = function () {
+                var content = [];
+                var p = this;
+                while (p) {
+                    content.push(p.value);
+                    if (p.next == p) break;
+                    p = p.next;
+                }
+                return content.join();
+            };
+        }
+
+        var getJosephKill = function getJosephKill(head, m) {
+            if (head == null || head == head.next || m < 1) return head;
+
+            var last = head;
+            while (last.next != head) {
+                last = last.next;
+            }
+
+            var cnt = 0;
+            while (last != head) {
+                if (++cnt == m) {
+                    last.next = head.next;
+                    cnt = 0;
+                } else {
+                    last = last.next;
+                }
+                head = last.next;
+            }
+            return head;
+        };
+
+        function josephKill() {
+            var test1 = function () {
+                var head = new Node(1);
+                var p = head;
+                for (var i = 2; i <= 5; i++) {
+                    p.next = new Node(i);
+                    p = p.next;
+                }
+                p.next = head;
+                return head;
+            }();
+            var m = 3;
+            return getJosephKill(test1, m);
+        }
+
+        /***/
+    }),
+    /* 7 */
+    /***/ (function (module, exports, __webpack_require__) {
+
+        "use strict";
+
+
+        Object.defineProperty(exports, "__esModule", {
+            value: true
+        });
         exports.maxDistanceInArrays = maxDistanceInArrays;
         var test1 = [[-8, -7, -7, -5, 1, 1, 3, 4], [-2], [-10, -10, -7, 0, 1, 3], [2]]; // 14
 
@@ -800,7 +864,7 @@
 
         /***/
     }),
-    /* 7 */
+    /* 8 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -939,7 +1003,7 @@
 
         /***/
     }),
-    /* 8 */
+    /* 9 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1050,15 +1114,15 @@
             }
 
             /*    // for each element, find the first larger number on the right side
-             for (var i = nodes.length - 1; i >= 0; i--) {
-             var curNode = nodes[i];
-             while (!stack.isEmpty() && stack.peek().value < curNode.value) {
-             popStackSetMap(stack, rMap)
-             }
-             stack.push(curNode)
-             }
-             while (!stack.isEmpty()) {
-             popStackSetMap(stack, rMap)
+            for (var i = nodes.length - 1; i >= 0; i--) {
+                var curNode = nodes[i];
+                while (!stack.isEmpty() && stack.peek().value < curNode.value) {
+                    popStackSetMap(stack, rMap)
+                }
+                stack.push(curNode)
+            }
+            while (!stack.isEmpty()) {
+                popStackSetMap(stack, rMap)
              }*/
 
             // generate the tree
@@ -1112,7 +1176,7 @@
 
         /***/
     }),
-    /* 9 */
+    /* 10 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1151,7 +1215,7 @@
 
         /***/
     }),
-    /* 10 */
+    /* 11 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1244,7 +1308,7 @@
 
         /***/
     }),
-    /* 11 */
+    /* 12 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1339,7 +1403,7 @@
 
         /***/
     }),
-    /* 12 */
+    /* 13 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1430,7 +1494,7 @@
 
         /***/
     }),
-    /* 13 */
+    /* 14 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1525,7 +1589,7 @@
 
         /***/
     }),
-    /* 14 */
+    /* 15 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1616,7 +1680,7 @@
 
         /***/
     }),
-    /* 15 */
+    /* 16 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1703,7 +1767,7 @@
 
         /***/
     }),
-    /* 16 */
+    /* 17 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1713,9 +1777,19 @@
             value: true
         });
         exports.reversePartOfLinkedList = reversePartOfLinkedList;
+
         function Node(val) {
             this.value = val;
             this.next = null;
+            this.toString = function () {
+                var content = [];
+                var p = this;
+                while (p) {
+                    content.push(p.value);
+                    p = p.next;
+        }
+                return content.join();
+            };
         }
 
         var getReversedList = function getReversedList(head, from, to) {
@@ -1725,14 +1799,15 @@
             var fromPre = null;
             var toPost = null;
             var curNode = head;
-            while (head) {
+            while (curNode) {
                 len++;
                 fromPre = len + 1 == from ? curNode : fromPre;
                 toPost = len - 1 == to ? curNode : toPost;
+                curNode = curNode.next;
             }
             if (to > len) return head;
 
-            curNode = fromPre.next;
+            curNode = fromPre == null ? head : fromPre.next;
             var nextNode = curNode.next;
             curNode.next = toPost;
             var p = null;
@@ -1742,26 +1817,32 @@
                 curNode = nextNode;
                 nextNode = p;
             }
+            if (fromPre != null) {
+                fromPre.next = curNode;
+                return head;
+            }
+
             return curNode;
         };
 
         function reversePartOfLinkedList() {
             var test1 = function () {
                 var head = new Node(1);
+                var p = head;
                 for (var i = 2; i <= 5; i++) {
-                    head.next = new Node(i);
+                    p.next = new Node(i);
+                    p = p.next;
                 }
                 return head;
             }();
-            var from = 2,
-                to = 4;
-            return;
+            var from = 1,
+                to = 3;
             return getReversedList(test1, from, to);
         }
 
         /***/
     }),
-    /* 17 */
+    /* 18 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1867,7 +1948,7 @@
 
         /***/
     }),
-    /* 18 */
+    /* 19 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1982,7 +2063,7 @@
 
         /***/
     }),
-    /* 19 */
+    /* 20 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -2025,7 +2106,7 @@
 
         /***/
     }),
-    /* 20 */
+    /* 21 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -2126,7 +2207,7 @@
 
         /***/
     }),
-    /* 21 */
+    /* 22 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -2134,47 +2215,49 @@
 
         var _getMinInStack = __webpack_require__(4);
 
-        var _maxDistanceInArrays = __webpack_require__(6);
+        var _maxDistanceInArrays = __webpack_require__(7);
 
-        var _twoStacksQueue = __webpack_require__(20);
+        var _twoStacksQueue = __webpack_require__(21);
 
-        var _reversedStack = __webpack_require__(17);
+        var _reversedStack = __webpack_require__(18);
 
         var _catsAndDogsQueue = __webpack_require__(0);
 
-        var _sortStackByStack = __webpack_require__(18);
+        var _sortStackByStack = __webpack_require__(19);
 
         var _hanoi = __webpack_require__(5);
 
         var _getLargestInWindowOnArray = __webpack_require__(3);
 
-        var _maxTreeFromArray = __webpack_require__(8);
+        var _maxTreeFromArray = __webpack_require__(9);
 
-        var _maxRectSizeFromMatrix = __webpack_require__(7);
+        var _maxRectSizeFromMatrix = __webpack_require__(8);
 
-        var _mergeTwoSortedArrays = __webpack_require__(9);
+        var _mergeTwoSortedArrays = __webpack_require__(10);
 
-        var _subArraysWithinDistance = __webpack_require__(19);
+        var _subArraysWithinDistance = __webpack_require__(20);
 
         var _commonPartOfTwoSortedLinkedLists = __webpack_require__(1);
 
-        var _removeKthNodeFromLinkedList = __webpack_require__(10);
+        var _removeKthNodeFromLinkedList = __webpack_require__(11);
 
-        var _removeLastKthNodeFromDNodeList = __webpack_require__(11);
+        var _removeLastKthNodeFromDNodeList = __webpack_require__(12);
 
         var _exclusiveTimeOfFunctionExecution = __webpack_require__(2);
 
-        var _removeMiddleNodeFromLinkedList = __webpack_require__(12);
+        var _removeMiddleNodeFromLinkedList = __webpack_require__(13);
 
-        var _removeNodeAtAOverBFromLinkedList = __webpack_require__(13);
+        var _removeNodeAtAOverBFromLinkedList = __webpack_require__(14);
 
-        var _reverseLinkedList = __webpack_require__(15);
+        var _reverseLinkedList = __webpack_require__(16);
 
-        var _reverseDNodeList = __webpack_require__(14);
+        var _reverseDNodeList = __webpack_require__(15);
 
-        var _reversePartOfLinkedList = __webpack_require__(16);
+        var _reversePartOfLinkedList = __webpack_require__(17);
 
-        EvaluateTimeCost(_reversePartOfLinkedList.reversePartOfLinkedList);
+        var _josephKill = __webpack_require__(6);
+
+        EvaluateTimeCost(_josephKill.josephKill);
 
         function EvaluateTimeCost(func) {
             var startTime = new Date();

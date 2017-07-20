@@ -36,6 +36,31 @@ var getJosephKill = function (head, m) {
     return head
 };
 
+var getJosephKill2 = function (head, m) {
+    if (head == null || head == head.next || m < 1) return head;
+
+    var cur = head.next;
+    var temp = 1;
+    while (cur != head) {
+        temp++;
+        cur = cur.next
+    }
+    temp = getLive(temp, m);
+    while (--temp != 0) {
+        head = head.next
+    }
+    head.next = head;
+    return head
+};
+
+function getLive(size, m) {
+    if (size == 1) {
+        return 1
+    }
+    var result = (getLive(size - 1, m) + m - 1) % size + 1;
+    return result
+}
+
 export function josephKill() {
     var test1 = function () {
         var head = new Node(1);
@@ -48,5 +73,5 @@ export function josephKill() {
         return head
     }();
     var m = 3;
-    return getJosephKill(test1, m)
+    return getJosephKill2(test1, m)
 }
