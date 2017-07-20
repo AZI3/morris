@@ -22,9 +22,10 @@ import {reverseLinkedList} from "./algorithm/reverseLinkedList"
 import {reverseDNodeList} from "./algorithm/reverseDNodeList"
 import {reversePartOfLinkedList} from "./algorithm/reversePartOfLinkedList"
 import {josephKill} from "./algorithm/josephKill"
+import {palindromeCheck} from "./algorithm/palindromeCheck"
 
 
-EvaluateTimeCost(josephKill);
+EvaluateTimeCost(palindromeCheck);
 
 function EvaluateTimeCost(func) {
     let startTime = new Date();
