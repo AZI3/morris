@@ -27,7 +27,7 @@ import {listPartition} from "./algorithm/listPartition"
 import {findErrorNumberInASequentialArray} from "./algorithm/findErrorNumsInASequentialArray"
 
 
-EvaluateTimeCost(findErrorNumberInASequentialArray);
+EvaluateTimeCost(listPartition);
 
 function EvaluateTimeCost(func) {
     let startTime = new Date();

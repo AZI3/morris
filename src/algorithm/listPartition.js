@@ -50,6 +50,58 @@ var swap = function (arr, a, b) {
     arr[b] = temp
 };
 
+var getListPartition2 = function (head, pivot) {
+    var sH = null, sT = null;
+    var eH = null, eT = null;
+    var bH = null, bT = null;
+
+    var next = null;
+    while (head) {
+        next = head.next;
+        head.next = null;
+
+        if (head.value < pivot) {
+            if (sH == null) {
+                sH = head;
+                sT = head
+            } else {
+                sT.next = head;
+                sT = head
+            }
+        } else if (head.value == pivot) {
+            if (eH == null) {
+                eH = head;
+                eT = head
+            } else {
+                eT.next = head;
+                eT = head
+            }
+        } else {
+            if (bH == null) {
+                bH = head;
+                bT = head
+            } else {
+                bT.next = head;
+                bT = head
+            }
+        }
+        head = next
+    }
+
+    if (sT != null) {
+        sT.next = eH;
+        eT = eT == null ? sT : eT
+    }
+
+    if (eT != null) {
+        eT.next = bH
+    }
+
+    if (sH != null) return sH;
+    if (eH != null) return eH;
+    return bH
+
+};
 
 export function listPartition() {
     var test1 = function () {
@@ -61,5 +113,5 @@ export function listPartition() {
         return head
     }();
     var pivot1 = 3;
-    return getListPartition(test1, pivot1)
+    return getListPartition2(test1, pivot1)
 }
