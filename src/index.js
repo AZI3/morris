@@ -24,9 +24,10 @@ import {reversePartOfLinkedList} from "./algorithm/reversePartOfLinkedList"
 import {josephKill} from "./algorithm/josephKill"
 import {palindromeCheck} from "./algorithm/palindromeCheck"
 import {listPartition} from "./algorithm/listPartition"
+import {findErrorNumberInASequentialArray} from "./algorithm/findErrorNumsInASequentialArray"
 
 
-EvaluateTimeCost(listPartition);
+EvaluateTimeCost(findErrorNumberInASequentialArray);
 
 function EvaluateTimeCost(func) {
     let startTime = new Date();
