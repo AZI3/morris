@@ -23,9 +23,10 @@ import {reverseDNodeList} from "./algorithm/reverseDNodeList"
 import {reversePartOfLinkedList} from "./algorithm/reversePartOfLinkedList"
 import {josephKill} from "./algorithm/josephKill"
 import {palindromeCheck} from "./algorithm/palindromeCheck"
+import {listPartition} from "./algorithm/listPartition"
 
 
-EvaluateTimeCost(palindromeCheck);
+EvaluateTimeCost(listPartition);
 
 function EvaluateTimeCost(func) {
     let startTime = new Date();
