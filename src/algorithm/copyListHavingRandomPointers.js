@@ -13,7 +13,7 @@ export function copyListHavingRandomPointers() {
         head.next.next.rand = n1;
         return head
     }();
-    return getCopyOfList(test1)
+    return getCopyOfList2(test1)
 }
 
 var getCopyOfList = function (head) {
@@ -30,6 +30,28 @@ var getCopyOfList = function (head) {
         p = p.next
     }
     return map.get(head)
+};
+
+var getCopyOfList2 = function (head) {
+    var p = head;
+    var next = null;
+    while (p) {
+        next = p.next;
+        p.next = new Node(p.value);
+        p.next.next = next;
+        p = next
+    }
+    p = head;
+    var copyHead = null;
+    while (p) {
+        next = p.next.next;
+        copyHead = p.next;
+        copyHead.next = next ? next.next : null;
+        copyHead.rand = p.rand ? p.rand.next : null;
+        p = next
+    }
+    p = head;
+    return head.next
 };
 
 function Node(val) {
