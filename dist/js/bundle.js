@@ -101,7 +101,7 @@
     /******/
     /******/ 	// Load entry module and return exports
     /******/
-    return __webpack_require__(__webpack_require__.s = 22);
+    return __webpack_require__(__webpack_require__.s = 26);
     /******/
 })
 /************************************************************************/
@@ -400,6 +400,71 @@
         Object.defineProperty(exports, "__esModule", {
             value: true
         });
+        exports.copyListHavingRandomPointers = copyListHavingRandomPointers;
+
+        function copyListHavingRandomPointers() {
+            var test1 = function test1() {
+                var n1 = new Node(1);
+                var n2 = new Node(2);
+                var n3 = new Node(3);
+                var head = n1;
+                head.rand = n3;
+                head.next = n2;
+                head.next.rand = null;
+                head.next.next = n3;
+                head.next.next.rand = n1;
+            };
+            return getCopyOfList(test1);
+        }
+
+        var getCopyOfList = function getCopyOfList(head) {
+            var map = new Map();
+            var p = head;
+            while (p) {
+                map.put(p, new Node(p.value));
+                p = p.next;
+            }
+            p = head;
+            while (p) {
+                map.get(p).next = map.get(p.next);
+                map.get(p).rand = map.get(p.rand);
+                p = p.next;
+            }
+            return map.get(head);
+        };
+
+        function Node(val) {
+            this.value = val;
+            this.next = null;
+            this.rand = null;
+        }
+
+        function Map() {
+            this.entrySet = {};
+        }
+
+        Map.prototype = {
+            put: function put(key, value) {
+                this.entrySet[JSON.stringify(key)] = value;
+            },
+            get: function get(key) {
+                this.entrySet[JSON.stringify(key)];
+            }
+        };
+
+        Map.prototype.constructor = Map;
+
+        /***/
+    }),
+    /* 3 */
+    /***/ (function (module, exports, __webpack_require__) {
+
+        "use strict";
+
+
+        Object.defineProperty(exports, "__esModule", {
+            value: true
+        });
         exports.exclusiveTimeOfFunctionExecution = exclusiveTimeOfFunctionExecution;
         var exclusiveTime = function exclusiveTime(n, logs) {
             var funcStack = [];
@@ -432,7 +497,40 @@
 
         /***/
     }),
-    /* 3 */
+    /* 4 */
+    /***/ (function (module, exports, __webpack_require__) {
+
+        "use strict";
+
+
+        Object.defineProperty(exports, "__esModule", {
+            value: true
+        });
+        exports.findErrorNumberInASequentialArray = findErrorNumberInASequentialArray;
+        var getErrorResultFromArray = function getErrorResultFromArray(nums) {
+            var result = [];
+            for (var i = 0; i < nums.length; i++) {
+                var val = nums[i];
+                if (nums[Math.abs(val) - 1] < 0) result[0] = Math.abs(val); else nums[Math.abs(val) - 1] *= -1;
+            }
+            for (var i = 0; i < nums.length; i++) {
+                if (nums[i] > 0) {
+                    result[1] = i + 1;
+                    break;
+                }
+            }
+            return result;
+        };
+
+        function findErrorNumberInASequentialArray() {
+            var test1 = [2, 1, 2, 6, 5, 3, 4, 8, 9, 7];
+            var test2 = [3, 2, 2];
+            return getErrorResultFromArray(test2);
+        }
+
+        /***/
+    }),
+    /* 5 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -473,7 +571,7 @@
 
         /***/
     }),
-    /* 4 */
+    /* 6 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -601,7 +699,7 @@
 
         /***/
     }),
-    /* 5 */
+    /* 7 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -767,7 +865,7 @@
 
         /***/
     }),
-    /* 6 */
+    /* 8 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -814,6 +912,31 @@
             return head;
         };
 
+        var getJosephKill2 = function getJosephKill2(head, m) {
+            if (head == null || head == head.next || m < 1) return head;
+
+            var cur = head.next;
+            var temp = 1;
+            while (cur != head) {
+                temp++;
+                cur = cur.next;
+            }
+            temp = getLive(temp, m);
+            while (--temp != 0) {
+                head = head.next;
+            }
+            head.next = head;
+            return head;
+        };
+
+        function getLive(size, m) {
+            if (size == 1) {
+                return 1;
+            }
+            var result = (getLive(size - 1, m) + m - 1) % size + 1;
+            return result;
+        }
+
         function josephKill() {
             var test1 = function () {
                 var head = new Node(1);
@@ -826,12 +949,141 @@
                 return head;
             }();
             var m = 3;
-            return getJosephKill(test1, m);
+            return getJosephKill2(test1, m);
         }
 
         /***/
     }),
-    /* 7 */
+    /* 9 */
+    /***/ (function (module, exports, __webpack_require__) {
+
+        "use strict";
+
+
+        Object.defineProperty(exports, "__esModule", {
+            value: true
+        });
+        exports.listPartition = listPartition;
+
+        function Node(val) {
+            this.value = val;
+            this.next = null;
+            this.toString = function () {
+                var result = [];
+                var p = this;
+                while (p) {
+                    result.push(p.value);
+                    p = p.next;
+                }
+                return result.join();
+            };
+        }
+
+        var getListPartition = function getListPartition(head, pivot) {
+            if (head == null) return head;
+
+            var arr = [];
+            var p = head;
+            while (p) {
+                arr.push(p);
+                p = p.next;
+            }
+
+            arrPartition(arr, pivot);
+
+            for (var i = 1; i < arr.length; i++) {
+                arr[i - 1].next = arr[i];
+            }
+            arr[arr.length - 1].next = null;
+            return arr[0];
+        };
+
+        var arrPartition = function arrPartition(arr, pivot) {
+            var small = -1;
+            var big = arr.length;
+            var index = 0;
+            while (index != big) {
+                if (arr[index].value < pivot) swap(arr, ++small, index++); else if (arr[index].value == pivot) index++; else swap(arr, --big, index);
+            }
+        };
+
+        var swap = function swap(arr, a, b) {
+            var temp = arr[a];
+            arr[a] = arr[b];
+            arr[b] = temp;
+        };
+
+        var getListPartition2 = function getListPartition2(head, pivot) {
+            var sH = null,
+                sT = null;
+            var eH = null,
+                eT = null;
+            var bH = null,
+                bT = null;
+
+            var next = null;
+            while (head) {
+                next = head.next;
+                head.next = null;
+
+                if (head.value < pivot) {
+                    if (sH == null) {
+                        sH = head;
+                        sT = head;
+                    } else {
+                        sT.next = head;
+                        sT = head;
+                    }
+                } else if (head.value == pivot) {
+                    if (eH == null) {
+                        eH = head;
+                        eT = head;
+                    } else {
+                        eT.next = head;
+                        eT = head;
+                    }
+                } else {
+                    if (bH == null) {
+                        bH = head;
+                        bT = head;
+                    } else {
+                        bT.next = head;
+                        bT = head;
+                    }
+                }
+                head = next;
+            }
+
+            if (sT != null) {
+                sT.next = eH;
+                eT = eT == null ? sT : eT;
+            }
+
+            if (eT != null) {
+                eT.next = bH;
+            }
+
+            if (sH != null) return sH;
+            if (eH != null) return eH;
+            return bH;
+        };
+
+        function listPartition() {
+            var test1 = function () {
+                var head = new Node(9);
+                head.next = new Node(3);
+                head.next.next = new Node(0);
+                head.next.next.next = new Node(5);
+                head.next.next.next.next = new Node(1);
+                return head;
+            }();
+            var pivot1 = 3;
+            return getListPartition2(test1, pivot1);
+        }
+
+        /***/
+    }),
+    /* 10 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -864,7 +1116,7 @@
 
         /***/
     }),
-    /* 8 */
+    /* 11 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1003,7 +1255,7 @@
 
         /***/
     }),
-    /* 9 */
+    /* 12 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1176,7 +1428,7 @@
 
         /***/
     }),
-    /* 10 */
+    /* 13 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1215,7 +1467,123 @@
 
         /***/
     }),
-    /* 11 */
+    /* 14 */
+    /***/ (function (module, exports, __webpack_require__) {
+
+        "use strict";
+
+
+        Object.defineProperty(exports, "__esModule", {
+            value: true
+        });
+        exports.palindromeCheck = palindromeCheck;
+
+        function Node(val) {
+            this.value = val;
+            this.next = null;
+        }
+
+        var isPalindrome = function isPalindrome(head) {
+            if (head == null || head.next == null) return head;
+            var stack = [];
+
+            var node = head;
+            while (node) {
+                stack.push(node);
+                node = node.next;
+            }
+
+            node = head;
+            while (stack.length > 0) {
+                if (node.value != stack.pop().value) return false;
+                node = node.next;
+            }
+            return true;
+        };
+
+        var isPalindrome2 = function isPalindrome2(head) {
+            if (head == null || head.next == null) return head;
+
+            var p = head;
+            var rightHead = head;
+            while (p.next && p.next.next) {
+                // two pointers, one moves 2x faster than the other
+                p = p.next.next;
+                rightHead = rightHead.next;
+            }
+            rightHead = rightHead.next;
+
+            var stack = [];
+            while (rightHead) {
+                stack.push(rightHead);
+                rightHead = rightHead.next;
+            }
+
+            p = head;
+            while (stack.length > 0) {
+                if (p.value != stack.pop().value) return false;
+                p = p.next;
+            }
+            return true;
+        };
+
+        var isPalindrome3 = function isPalindrome3(head) {
+            if (head == null || head.next == null) return head;
+
+            var p = head;
+            var rightHead = head;
+            while (p.next && p.next.next) {
+                p = p.next.next;
+                rightHead = rightHead.next;
+            }
+            var pre = rightHead;
+            rightHead = rightHead.next;
+            pre.next = null;
+
+            while (rightHead) {
+                p = rightHead.next;
+                rightHead.next = pre;
+                pre = rightHead;
+                rightHead = p;
+            }
+
+            p = head;
+            rightHead = pre;
+            while (pre != null && p != null) {
+                if (pre.value != p.value) {
+                    return false;
+                }
+                pre = pre.next;
+                p = p.next;
+            }
+
+            pre = null;
+            while (rightHead) {
+                // restore the list
+                p = rightHead.next;
+                rightHead.next = pre;
+                pre = rightHead;
+                rightHead = p;
+            }
+
+            return true;
+        };
+
+        function palindromeCheck() {
+            var test1 = function () {
+                var head = new Node(1);
+                head.next = new Node(2);
+                head.next.next = new Node(3);
+                head.next.next.next = new Node(2);
+                head.next.next.next.next = new Node(1);
+                return head;
+            }();
+            return isPalindrome3(test1);
+        }
+
+        /***/
+    }),
+    /* 15 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1308,7 +1676,7 @@
 
         /***/
     }),
-    /* 12 */
+    /* 16 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1403,7 +1771,7 @@
 
         /***/
     }),
-    /* 13 */
+    /* 17 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1494,7 +1862,7 @@
 
         /***/
     }),
-    /* 14 */
+    /* 18 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1589,7 +1957,7 @@
 
         /***/
     }),
-    /* 15 */
+    /* 19 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1680,7 +2048,7 @@
 
         /***/
     }),
-    /* 16 */
+    /* 20 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1767,7 +2135,7 @@
 
         /***/
     }),
-    /* 17 */
+    /* 21 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1842,7 +2210,7 @@
 
         /***/
     }),
-    /* 18 */
+    /* 22 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1948,7 +2316,7 @@
 
         /***/
     }),
-    /* 19 */
+    /* 23 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -2063,7 +2431,7 @@
 
         /***/
     }),
-    /* 20 */
+    /* 24 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -2106,7 +2474,7 @@
 
         /***/
     }),
-    /* 21 */
+    /* 25 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -2207,57 +2575,65 @@
 
         /***/
     }),
-    /* 22 */
+    /* 26 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
 
 
-        var _getMinInStack = __webpack_require__(4);
+        var _getMinInStack = __webpack_require__(6);
 
-        var _maxDistanceInArrays = __webpack_require__(7);
+        var _maxDistanceInArrays = __webpack_require__(10);
 
-        var _twoStacksQueue = __webpack_require__(21);
+        var _twoStacksQueue = __webpack_require__(25);
 
-        var _reversedStack = __webpack_require__(18);
+        var _reversedStack = __webpack_require__(22);
 
         var _catsAndDogsQueue = __webpack_require__(0);
 
-        var _sortStackByStack = __webpack_require__(19);
+        var _sortStackByStack = __webpack_require__(23);
 
-        var _hanoi = __webpack_require__(5);
+        var _hanoi = __webpack_require__(7);
 
-        var _getLargestInWindowOnArray = __webpack_require__(3);
+        var _getLargestInWindowOnArray = __webpack_require__(5);
 
-        var _maxTreeFromArray = __webpack_require__(9);
+        var _maxTreeFromArray = __webpack_require__(12);
 
-        var _maxRectSizeFromMatrix = __webpack_require__(8);
+        var _maxRectSizeFromMatrix = __webpack_require__(11);
 
-        var _mergeTwoSortedArrays = __webpack_require__(10);
+        var _mergeTwoSortedArrays = __webpack_require__(13);
 
-        var _subArraysWithinDistance = __webpack_require__(20);
+        var _subArraysWithinDistance = __webpack_require__(24);
 
         var _commonPartOfTwoSortedLinkedLists = __webpack_require__(1);
 
-        var _removeKthNodeFromLinkedList = __webpack_require__(11);
+        var _removeKthNodeFromLinkedList = __webpack_require__(15);
 
-        var _removeLastKthNodeFromDNodeList = __webpack_require__(12);
+        var _removeLastKthNodeFromDNodeList = __webpack_require__(16);
 
-        var _exclusiveTimeOfFunctionExecution = __webpack_require__(2);
+        var _exclusiveTimeOfFunctionExecution = __webpack_require__(3);
 
-        var _removeMiddleNodeFromLinkedList = __webpack_require__(13);
+        var _removeMiddleNodeFromLinkedList = __webpack_require__(17);
 
-        var _removeNodeAtAOverBFromLinkedList = __webpack_require__(14);
+        var _removeNodeAtAOverBFromLinkedList = __webpack_require__(18);
 
-        var _reverseLinkedList = __webpack_require__(16);
+        var _reverseLinkedList = __webpack_require__(20);
 
-        var _reverseDNodeList = __webpack_require__(15);
+        var _reverseDNodeList = __webpack_require__(19);
 
-        var _reversePartOfLinkedList = __webpack_require__(17);
+        var _reversePartOfLinkedList = __webpack_require__(21);
 
-        var _josephKill = __webpack_require__(6);
+        var _josephKill = __webpack_require__(8);
 
-        EvaluateTimeCost(_josephKill.josephKill);
+        var _palindromeCheck = __webpack_require__(14);
+
+        var _listPartition = __webpack_require__(9);
+
+        var _findErrorNumsInASequentialArray = __webpack_require__(4);
+
+        var _copyListHavingRandomPointers = __webpack_require__(2);
+
+        EvaluateTimeCost(_copyListHavingRandomPointers.copyListHavingRandomPointers);
 
         function EvaluateTimeCost(func) {
             var startTime = new Date();
