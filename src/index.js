@@ -26,9 +26,10 @@ import {palindromeCheck} from "./algorithm/palindromeCheck"
 import {listPartition} from "./algorithm/listPartition"
 import {findErrorNumberInASequentialArray} from "./algorithm/findErrorNumsInASequentialArray"
 import {copyListHavingRandomPointers} from "./algorithm/copyListHavingRandomPointers"
+import {addList} from "./algorithm/addList"
 
 
-EvaluateTimeCost(copyListHavingRandomPointers);
+EvaluateTimeCost(addList);
 
 function EvaluateTimeCost(func) {
     let startTime = new Date();
