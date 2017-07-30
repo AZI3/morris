@@ -27,9 +27,10 @@ import {listPartition} from "./algorithm/listPartition"
 import {findErrorNumberInASequentialArray} from "./algorithm/findErrorNumsInASequentialArray"
 import {copyListHavingRandomPointers} from "./algorithm/copyListHavingRandomPointers"
 import {addList} from "./algorithm/addList"
+import {listsIntersection} from "./algorithm/listsIntersection"
 
 
-EvaluateTimeCost(addList);
+EvaluateTimeCost(listsIntersection);
 
 function EvaluateTimeCost(func) {
     let startTime = new Date();
