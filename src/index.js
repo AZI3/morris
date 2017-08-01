@@ -28,9 +28,10 @@ import {findErrorNumberInASequentialArray} from "./algorithm/findErrorNumsInASeq
 import {copyListHavingRandomPointers} from "./algorithm/copyListHavingRandomPointers"
 import {addList} from "./algorithm/addList"
 import {listsIntersection} from "./algorithm/listsIntersection"
+import {reverseKNodes} from "./algorithm/reverseKNodes"
 
 
-EvaluateTimeCost(listsIntersection);
+EvaluateTimeCost(reverseKNodes);
 
 function EvaluateTimeCost(func) {
     let startTime = new Date();
