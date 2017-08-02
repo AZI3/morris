@@ -11,7 +11,7 @@ export function reverseKNodes() {
         return head
     }();
     var k = 3;
-    return getReverseKNodes(test1, k)
+    return getReverseKNodes2(test1, k)
 }
 
 var getReverseKNodes = function (head, k) {
@@ -42,6 +42,44 @@ var reverseParts = function (stack, pre, next) {
     }
     p.next = next;
     return p
+};
+
+var getReverseKNodes2 = function (head, k) {
+    if (head == null || k <= 1) return head;
+    var cur = head;
+    var next = null;
+    var pre = null;
+    var start = null; // the last node of the last group
+    var cnt = 1;
+    while (cur) {
+        next = cur.next;
+        if (cnt == k) {
+            start = pre == null ? head : pre.next;
+            head = pre == null ? cur : head; // record the new head
+            reverseParts2(pre, start, cur, next);
+            pre = start;
+            cnt = 0
+        }
+        cnt++;
+        cur = next
+    }
+    return head
+};
+
+var reverseParts2 = function (left, start, end, right) {
+    var pre = start;
+    var cur = start.next;
+    var next = null;
+    while (cur != right) {
+        next = cur.next;
+        cur.next = pre;
+        pre = cur;
+        cur = next
+    }
+    if (left != null) {
+        left.next = end
+    }
+    start.next = right
 };
 
 function Node(val) {
