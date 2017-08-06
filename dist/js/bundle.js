@@ -101,12 +101,138 @@
     /******/
     /******/ 	// Load entry module and return exports
     /******/
-    return __webpack_require__(__webpack_require__.s = 26);
+    return __webpack_require__(__webpack_require__.s = 30);
     /******/
 })
 /************************************************************************/
 /******/([
     /* 0 */
+    /***/ (function (module, exports, __webpack_require__) {
+
+        "use strict";
+
+
+        Object.defineProperty(exports, "__esModule", {
+            value: true
+        });
+        exports.addList = addList;
+
+        function addList() {
+            var test1 = function () {
+                var head = new Node(9);
+                head.next = new Node(3);
+                head.next.next = new Node(7);
+                return head;
+            }();
+            var test2 = function () {
+                var head = new Node(6);
+                head.next = new Node(3);
+                return head;
+            }();
+            return getAddedList2(test1, test2);
+        }
+
+        var getAddedList = function getAddedList(head1, head2) {
+            var stack1 = new Stack();
+            var stack2 = new Stack();
+            while (head1) {
+                stack1.push(head1.value);
+                head1 = head1.next;
+            }
+            while (head2) {
+                stack2.push(head2.value);
+                head2 = head2.next;
+            }
+            var ca = 0;
+            var sum = 0;
+            var res = null;
+            var pre = null;
+            while (stack1.size() > 0 || stack2.size() > 0) {
+                sum = (stack1.size() > 0 ? stack1.pop() : 0) + (stack2.size() > 0 ? stack2.pop() : 0) + ca;
+                ca = parseInt(sum / 10);
+                pre = res;
+                res = new Node(sum % 10);
+                res.next = pre;
+            }
+            if (ca == 1) {
+                pre = res;
+                res = new Node(1);
+                res.next = pre;
+            }
+            return res;
+        };
+
+        var getAddedList2 = function getAddedList2(head1, head2) {
+            var rHead1 = reverseList(head1);
+            var rHead2 = reverseList(head2);
+
+            var ca = 0;
+            var sum = 0;
+            var res = null;
+            var pre = null;
+            while (rHead1 || rHead2) {
+                sum = (rHead1 ? rHead1.value : 0) + (rHead2 ? rHead2.value : 0) + ca;
+                ca = parseInt(sum / 10);
+                pre = res;
+                res = new Node(sum % 10);
+                res.next = pre;
+                rHead1 = rHead1 ? rHead1.next : null;
+                rHead2 = rHead2 ? rHead2.next : null;
+            }
+            if (ca == 1) {
+                pre = res;
+                res = new Node(1);
+                res.next = pre;
+            }
+            return res;
+        };
+
+        var reverseList = function reverseList(head) {
+            var next = null;
+            var pre = null;
+            while (head) {
+                next = head.next;
+                head.next = pre;
+                pre = head;
+                head = next;
+            }
+            return pre;
+        };
+
+        function Node(val) {
+            this.value = val;
+            this.next = null;
+            this.toString = function () {
+                var result = [];
+                var p = this;
+                while (p) {
+                    result.push(p.value);
+                    p = p.next;
+                }
+                return result.join();
+            };
+        }
+
+        function Stack() {
+            this.values = [];
+        }
+
+        Stack.prototype.push = function (val) {
+            this.values.push(val);
+        };
+        Stack.prototype.pop = function () {
+            return this.values.pop();
+        };
+        Stack.prototype.peek = function () {
+            return this.values[this.size() - 1];
+        };
+        Stack.prototype.size = function () {
+            return this.values.length;
+        };
+
+        /***/
+    }),
+    /* 1 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -313,7 +439,7 @@
 
         /***/
     }),
-    /* 1 */
+    /* 2 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -391,7 +517,7 @@
 
         /***/
     }),
-    /* 2 */
+    /* 3 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -403,25 +529,26 @@
         exports.copyListHavingRandomPointers = copyListHavingRandomPointers;
 
         function copyListHavingRandomPointers() {
-            var test1 = function test1() {
+            var test1 = function () {
                 var n1 = new Node(1);
                 var n2 = new Node(2);
                 var n3 = new Node(3);
                 var head = n1;
-                head.rand = n3;
                 head.next = n2;
-                head.next.rand = null;
                 head.next.next = n3;
+                head.rand = n3;
+                head.next.rand = null;
                 head.next.next.rand = n1;
-            };
-            return getCopyOfList(test1);
+                return head;
+            }();
+            return getCopyOfList2(test1);
         }
 
         var getCopyOfList = function getCopyOfList(head) {
             var map = new Map();
             var p = head;
             while (p) {
-                map.put(p, new Node(p.value));
+                map.set(p, new Node(p.value));
                 p = p.next;
             }
             p = head;
@@ -433,30 +560,46 @@
             return map.get(head);
         };
 
+        var getCopyOfList2 = function getCopyOfList2(head) {
+            var p = head;
+            var next = null;
+            while (p) {
+                next = p.next;
+                p.next = new Node(p.value);
+                p.next.next = next;
+                p = next;
+            }
+            p = head;
+            var copyHead = null;
+            while (p) {
+                next = p.next.next;
+                copyHead = p.next;
+                copyHead.next = next ? next.next : null;
+                copyHead.rand = p.rand ? p.rand.next : null;
+                p = next;
+            }
+            p = head;
+            return head.next;
+        };
+
         function Node(val) {
             this.value = val;
             this.next = null;
             this.rand = null;
+            this.toString = function () {
+                var result = [];
+                var p = this;
+                while (p) {
+                    result.push(p.value);
+                    p = p.next;
+                }
+                return result.join();
+            };
         }
-
-        function Map() {
-            this.entrySet = {};
-        }
-
-        Map.prototype = {
-            put: function put(key, value) {
-                this.entrySet[JSON.stringify(key)] = value;
-            },
-            get: function get(key) {
-                this.entrySet[JSON.stringify(key)];
-            }
-        };
-
-        Map.prototype.constructor = Map;
 
         /***/
     }),
-    /* 3 */
+    /* 4 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -497,7 +640,7 @@
 
         /***/
     }),
-    /* 4 */
+    /* 5 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -530,7 +673,7 @@
 
         /***/
     }),
-    /* 5 */
+    /* 6 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -571,7 +714,7 @@
 
         /***/
     }),
-    /* 6 */
+    /* 7 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -699,7 +842,7 @@
 
         /***/
     }),
-    /* 7 */
+    /* 8 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -865,7 +1008,7 @@
 
         /***/
     }),
-    /* 8 */
+    /* 9 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -954,7 +1097,7 @@
 
         /***/
     }),
-    /* 9 */
+    /* 10 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1083,7 +1226,143 @@
 
         /***/
     }),
-    /* 10 */
+    /* 11 */
+    /***/ (function (module, exports, __webpack_require__) {
+
+        "use strict";
+
+
+        Object.defineProperty(exports, "__esModule", {
+            value: true
+        });
+        exports.listsIntersection = listsIntersection;
+
+        function listsIntersection() {
+            var n1 = new Node(1);
+            var n2 = new Node(2);
+            var n3 = new Node(3);
+            var n4 = new Node(4);
+            var n5 = new Node(5);
+            var n6 = new Node(6);
+            var n7 = new Node(7);
+            var test1 = function () {
+                var head = n1;
+                head.next = n2;
+                head.next.next = n3;
+                head.next.next.next = n4;
+                head.next.next.next.next = n5;
+                head.next.next.next.next.next = n3;
+                return head;
+            }();
+            var test2 = function () {
+                var head = n6;
+                head.next = n7;
+                head.next.next = n4;
+                return head;
+            }();
+            return getIntersection(test1, test2);
+        }
+
+        var getIntersection = function getIntersection(head1, head2) {
+            if (head1 == null || head2 == null) return null;
+
+            var loop1 = getLoopNode(head1);
+            var loop2 = getLoopNode(head2);
+            if (loop1 == null && loop2 == null) return noLoop(head1, head2);
+            if (loop1 != null && loop2 != null) return bothLoop(head1, head2, loop1, loop2);
+            return null;
+        };
+
+        var getLoopNode = function getLoopNode(head) {
+            if (head.next == null || head.next.next == null) return null;
+            var slow = head.next,
+                fast = head.next.next;
+            while (slow != fast) {
+                if (fast.next == null || fast.next.next == null) return null;
+                slow = slow.next;
+                fast = fast.next.next;
+            }
+            fast = head;
+            while (slow != fast) {
+                slow = slow.next;
+                fast = fast.next;
+            }
+            return slow;
+        };
+
+        var noLoop = function noLoop(head1, head2) {
+            var cur1 = head1;
+            var cur2 = head2;
+            var n = 0;
+            while (cur1) {
+                n++;
+                cur1 = cur1.next;
+            }
+            while (cur2) {
+                n--;
+                cur2 = cur2.next;
+            }
+            if (cur1 != cur2) return null;
+            cur1 = n > 0 ? head1 : head2;
+            cur2 = cur1 == head1 ? head2 : head1;
+            n = Math.abs(n);
+            while (n > 0) {
+                n--;
+                cur1 = cur1.next;
+            }
+            while (cur1 != cur2) {
+                cur1 = cur1.next;
+                cur2 = cur2.next;
+            }
+            return cur1;
+        };
+
+        var bothLoop = function bothLoop(head1, head2, loop1, loop2) {
+            var cur1 = head1;
+            var cur2 = head2;
+            var n = 0;
+            if (loop1 == loop2) {
+                while (cur1 != loop1) {
+                    n++;
+                    cur1 = cur1.next;
+                }
+                while (cur2 != loop2) {
+                    n--;
+                    cur2 = cur2.next;
+                }
+                cur1 = n > 0 ? head1 : head2;
+                cur2 = cur1 == head1 ? head2 : head1;
+                n = Math.abs(n);
+                while (n > 0) {
+                    n--;
+                    cur1 = cur1.next;
+                }
+                while (cur1 != cur2) {
+                    cur1 = cur1.next;
+                    cur2 = cur2.next;
+                }
+                return cur1;
+            } else {
+                cur1 = loop1.next;
+                while (cur1 != loop1) {
+                    if (cur1 == loop2) return loop2;
+                    cur1 = cur1.next;
+                }
+                return null;
+            }
+        };
+
+        function Node(val) {
+            this.value = val;
+            this.next = null;
+            this.toString = function () {
+                return this.value;
+            };
+        }
+
+        /***/
+    }),
+    /* 12 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1116,7 +1395,7 @@
 
         /***/
     }),
-    /* 11 */
+    /* 13 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1255,7 +1534,7 @@
 
         /***/
     }),
-    /* 12 */
+    /* 14 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1428,7 +1707,7 @@
 
         /***/
     }),
-    /* 13 */
+    /* 15 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1467,7 +1746,7 @@
 
         /***/
     }),
-    /* 14 */
+    /* 16 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1583,7 +1862,76 @@
 
         /***/
     }),
-    /* 15 */
+    /* 17 */
+    /***/ (function (module, exports, __webpack_require__) {
+
+        "use strict";
+
+
+        Object.defineProperty(exports, "__esModule", {
+            value: true
+        });
+        exports.removeDuplicateNodes = removeDuplicateNodes;
+
+        function removeDuplicateNodes() {
+            var test1 = function () {
+                var head = new Node(1);
+                head.next = new Node(2);
+                head.next.next = new Node(3);
+                head.next.next.next = new Node(3);
+                head.next.next.next.next = new Node(4);
+                return head;
+            }();
+
+            return getRemoveDuplicateNodes(test1);
+        }
+
+        var getRemoveDuplicateNodes = function getRemoveDuplicateNodes(head) {
+            if (head == null || head.next == null) return head;
+            var set = [];
+            var pre = head;
+            var cur = head.next;
+            set.push(head.value);
+            while (cur) {
+                if (set.indexOf(cur.value) >= 0) {
+                    pre.next = cur.next;
+                } else {
+                    set.push(cur.value);
+                    pre = cur;
+                }
+                cur = cur.next;
+            }
+            return head;
+        };
+
+        var getRemoveDuplicateNodes2 = function getRemoveDuplicateNodes2(head) {
+            if (head == null || head.next == null) return head;
+            var pre = null;
+            var cur = head;
+            var next = cur.next;
+            while (cur) {
+                while (next) {
+                }
+            }
+        };
+
+        function Node(val) {
+            this.value = val;
+            this.next = null;
+            this.toString = function () {
+                var result = [];
+                var p = this;
+                while (p) {
+                    result.push(p.value);
+                    p = p.next;
+                }
+                return result.join();
+            };
+        }
+
+        /***/
+    }),
+    /* 18 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1676,7 +2024,7 @@
 
         /***/
     }),
-    /* 16 */
+    /* 19 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1771,7 +2119,7 @@
 
         /***/
     }),
-    /* 17 */
+    /* 20 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1862,7 +2210,7 @@
 
         /***/
     }),
-    /* 18 */
+    /* 21 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -1957,7 +2305,7 @@
 
         /***/
     }),
-    /* 19 */
+    /* 22 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -2048,7 +2396,116 @@
 
         /***/
     }),
-    /* 20 */
+    /* 23 */
+    /***/ (function (module, exports, __webpack_require__) {
+
+        "use strict";
+
+
+        Object.defineProperty(exports, "__esModule", {
+            value: true
+        });
+        exports.reverseKNodes = reverseKNodes;
+
+        function reverseKNodes() {
+            var test1 = function () {
+                var head = new Node(1);
+                var p = head;
+                for (var i = 2; i <= 5; i++) {
+                    p.next = new Node(i);
+                    p = p.next;
+                }
+                return head;
+            }();
+            var k = 3;
+            return getReverseKNodes2(test1, k);
+        }
+
+        var getReverseKNodes = function getReverseKNodes(head, k) {
+            if (head == null || k <= 1) return head;
+            var stack = [];
+            var p = head;
+            var pre = null;
+            var next = null;
+            var newHead = head;
+            while (p) {
+                next = p.next;
+                stack.push(p);
+                if (stack.length == k) {
+                    var pre = reverseParts(stack, pre, next);
+                    newHead = newHead == head ? p : newHead;
+                }
+                p = next;
+            }
+            return newHead;
+        };
+
+        var reverseParts = function reverseParts(stack, pre, next) {
+            var p = stack.pop();
+            if (pre) pre.next = p;
+            while (stack.length > 0) {
+                p.next = stack.pop();
+                p = p.next;
+            }
+            p.next = next;
+            return p;
+        };
+
+        var getReverseKNodes2 = function getReverseKNodes2(head, k) {
+            if (head == null || k <= 1) return head;
+            var cur = head;
+            var next = null;
+            var pre = null;
+            var start = null; // the last node of the last group
+            var cnt = 1;
+            while (cur) {
+                next = cur.next;
+                if (cnt == k) {
+                    start = pre == null ? head : pre.next;
+                    head = pre == null ? cur : head; // record the new head
+                    reverseParts2(pre, start, cur, next);
+                    pre = start;
+                    cnt = 0;
+                }
+                cnt++;
+                cur = next;
+            }
+            return head;
+        };
+
+        var reverseParts2 = function reverseParts2(left, start, end, right) {
+            var pre = start;
+            var cur = start.next;
+            var next = null;
+            while (cur != right) {
+                next = cur.next;
+                cur.next = pre;
+                pre = cur;
+                cur = next;
+            }
+            if (left != null) {
+                left.next = end;
+            }
+            start.next = right;
+        };
+
+        function Node(val) {
+            this.value = val;
+            this.next = null;
+            this.toString = function () {
+                var result = [];
+                var p = this;
+                while (p) {
+                    result.push(p.value);
+                    p = p.next;
+                }
+                return result.join();
+            };
+        }
+
+        /***/
+    }),
+    /* 24 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -2135,7 +2592,7 @@
 
         /***/
     }),
-    /* 21 */
+    /* 25 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -2210,7 +2667,7 @@
 
         /***/
     }),
-    /* 22 */
+    /* 26 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -2316,7 +2773,7 @@
 
         /***/
     }),
-    /* 23 */
+    /* 27 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -2431,7 +2888,7 @@
 
         /***/
     }),
-    /* 24 */
+    /* 28 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -2474,7 +2931,7 @@
 
         /***/
     }),
-    /* 25 */
+    /* 29 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
@@ -2575,65 +3032,73 @@
 
         /***/
     }),
-    /* 26 */
+    /* 30 */
     /***/ (function (module, exports, __webpack_require__) {
 
         "use strict";
 
 
-        var _getMinInStack = __webpack_require__(6);
+        var _getMinInStack = __webpack_require__(7);
 
-        var _maxDistanceInArrays = __webpack_require__(10);
+        var _maxDistanceInArrays = __webpack_require__(12);
 
-        var _twoStacksQueue = __webpack_require__(25);
+        var _twoStacksQueue = __webpack_require__(29);
 
-        var _reversedStack = __webpack_require__(22);
+        var _reversedStack = __webpack_require__(26);
 
-        var _catsAndDogsQueue = __webpack_require__(0);
+        var _catsAndDogsQueue = __webpack_require__(1);
 
-        var _sortStackByStack = __webpack_require__(23);
+        var _sortStackByStack = __webpack_require__(27);
 
-        var _hanoi = __webpack_require__(7);
+        var _hanoi = __webpack_require__(8);
 
-        var _getLargestInWindowOnArray = __webpack_require__(5);
+        var _getLargestInWindowOnArray = __webpack_require__(6);
 
-        var _maxTreeFromArray = __webpack_require__(12);
+        var _maxTreeFromArray = __webpack_require__(14);
 
-        var _maxRectSizeFromMatrix = __webpack_require__(11);
+        var _maxRectSizeFromMatrix = __webpack_require__(13);
 
-        var _mergeTwoSortedArrays = __webpack_require__(13);
+        var _mergeTwoSortedArrays = __webpack_require__(15);
 
-        var _subArraysWithinDistance = __webpack_require__(24);
+        var _subArraysWithinDistance = __webpack_require__(28);
 
-        var _commonPartOfTwoSortedLinkedLists = __webpack_require__(1);
+        var _commonPartOfTwoSortedLinkedLists = __webpack_require__(2);
 
-        var _removeKthNodeFromLinkedList = __webpack_require__(15);
+        var _removeKthNodeFromLinkedList = __webpack_require__(18);
 
-        var _removeLastKthNodeFromDNodeList = __webpack_require__(16);
+        var _removeLastKthNodeFromDNodeList = __webpack_require__(19);
 
-        var _exclusiveTimeOfFunctionExecution = __webpack_require__(3);
+        var _exclusiveTimeOfFunctionExecution = __webpack_require__(4);
 
-        var _removeMiddleNodeFromLinkedList = __webpack_require__(17);
+        var _removeMiddleNodeFromLinkedList = __webpack_require__(20);
 
-        var _removeNodeAtAOverBFromLinkedList = __webpack_require__(18);
+        var _removeNodeAtAOverBFromLinkedList = __webpack_require__(21);
 
-        var _reverseLinkedList = __webpack_require__(20);
+        var _reverseLinkedList = __webpack_require__(24);
 
-        var _reverseDNodeList = __webpack_require__(19);
+        var _reverseDNodeList = __webpack_require__(22);
 
-        var _reversePartOfLinkedList = __webpack_require__(21);
+        var _reversePartOfLinkedList = __webpack_require__(25);
 
-        var _josephKill = __webpack_require__(8);
+        var _josephKill = __webpack_require__(9);
 
-        var _palindromeCheck = __webpack_require__(14);
+        var _palindromeCheck = __webpack_require__(16);
 
-        var _listPartition = __webpack_require__(9);
+        var _listPartition = __webpack_require__(10);
 
-        var _findErrorNumsInASequentialArray = __webpack_require__(4);
+        var _findErrorNumsInASequentialArray = __webpack_require__(5);
 
-        var _copyListHavingRandomPointers = __webpack_require__(2);
+        var _copyListHavingRandomPointers = __webpack_require__(3);
 
-        EvaluateTimeCost(_copyListHavingRandomPointers.copyListHavingRandomPointers);
+        var _addList = __webpack_require__(0);
+
+        var _listsIntersection = __webpack_require__(11);
+
+        var _reverseKNodes = __webpack_require__(23);
+
+        var _removeDuplicateNodes = __webpack_require__(17);
+
+        EvaluateTimeCost(_removeDuplicateNodes.removeDuplicateNodes);
 
         function EvaluateTimeCost(func) {
             var startTime = new Date();

@@ -29,9 +29,10 @@ import {copyListHavingRandomPointers} from "./algorithm/copyListHavingRandomPoin
 import {addList} from "./algorithm/addList"
 import {listsIntersection} from "./algorithm/listsIntersection"
 import {reverseKNodes} from "./algorithm/reverseKNodes"
+import {removeDuplicateNodes} from "./algorithm/removeDuplicateNodes"
 
 
-EvaluateTimeCost(reverseKNodes);
+EvaluateTimeCost(removeDuplicateNodes);
 
 function EvaluateTimeCost(func) {
     let startTime = new Date();
